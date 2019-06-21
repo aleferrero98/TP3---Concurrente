@@ -2,6 +2,9 @@ public class RedDePetri {
     private int[] marcaActual;
     private int[][] matrizDeIncidencia;
     private boolean[] transiciones;
+    private VectorQ Q;
+    private VSensibilizadas E;
+    private VSensibilizadasArcInhib B;
 
     public RedDePetri(int[] marcaInicial, int[][] matrizDeIncidencia) {
 

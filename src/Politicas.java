@@ -6,6 +6,7 @@ public class Politicas {
 
     public Politicas() {
         this.prioridades = new HashMap<>();
+
     }
 
     public void addPrioridad(int transicion, int prioridad){
@@ -20,5 +21,10 @@ public class Politicas {
             }
         }
         return eleccion;
+    }
+    public int resolverConflicto(int[] marcado){
+        if(marcado[2]<marcado[3]){
+            return 2;
+        }else return 3;
     }
 }

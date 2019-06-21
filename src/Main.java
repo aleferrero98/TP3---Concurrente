@@ -5,10 +5,6 @@ import java.util.Date;
 import java.util.LinkedList;
 
 public class Main {
-    private static final int CANT_PRODUCTORES = 5;  //5
-    private static final int CANT_A_PRODUCIR = 96;  //10000
-    private static final int CANT_CONSUMIDORES = 8;  //8
-    private static final int CANT_A_CONSUMIR = 60;
 
     public static void main(String[] args) throws InterruptedException {
         Calendar today = Calendar.getInstance();
@@ -39,32 +35,11 @@ public class Main {
         for(int i = 0; i < matrizDeIncidencia[0].length; i++){
             politica.addPrioridad(i , 0);
         }
+        politica.addPrioridad(5 , 1);  // T5 y T6 tienen mayor prioridad, para descongestionar el buffer
+        politica.addPrioridad(6 , 1);
 
-        Productor productores[]=new Productor[CANT_PRODUCTORES];
-        Consumidor consumidores[]=new Consumidor[CANT_CONSUMIDORES];
         Monitor monitor = new Monitor(new RedDePetri(marcaInicial, matrizDeIncidencia), politica);
-        ArrayList<LinkedList<Dato>> buffers = new ArrayList<>();
-        buffers.add(new LinkedList<Dato>());
-        buffers.add(new LinkedList<Dato>());
 
-        for (int i = 0; i < CANT_PRODUCTORES; i++) {
-            productores[i] = new Productor(monitor,CANT_A_PRODUCIR, buffers);      // productores
-            productores[i].start();
-        }
-
-        for (int i = 0; i < CANT_CONSUMIDORES; i++) {
-            consumidores[i] = new Consumidor(monitor,CANT_A_CONSUMIR, buffers);      //consumidores
-            consumidores[i].start();
-        }
-
-        Temporizador temp = new Temporizador(buffers, consumidores, archivo); //empieza el temporizador(cada 30 seg) a escribir el log
-
-        for (int i = 0; i < CANT_PRODUCTORES; i++) {
-            productores[i].join();
-        }
-        for (int i = 0; i < CANT_CONSUMIDORES; i++) {
-            consumidores[i].join();
-        }
 
         Calendar today2 = Calendar.getInstance();
         System.out.print("Hora de fin: ");   //horas:minutos:segundos:milisegundos de fin del programa
