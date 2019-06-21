@@ -39,6 +39,8 @@ public class Main {
         for(int i = 0; i < matrizDeIncidencia[0].length; i++){
             politica.addPrioridad(i , 0);
         }
+        politica.addPrioridad(5 , 1);  // T5 y T6 tienen mayor prioridad, para descongestionar el buffer
+        politica.addPrioridad(6 , 1);
 
         Productor productores[]=new Productor[CANT_PRODUCTORES];
         Consumidor consumidores[]=new Consumidor[CANT_CONSUMIDORES];
