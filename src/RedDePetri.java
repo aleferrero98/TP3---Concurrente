@@ -1,17 +1,31 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class RedDePetri {
     private int[] marcaActual;
     private int[][] matrizDeIncidencia;
     private boolean[] transiciones;
-    private VectorQ Q;
-    private VSensibilizadas E;
-    private VSensibilizadasArcInhib B;
+    private VSensibilizadasExt Ex;
+    private List<Transicion> transicionList;
 
     public RedDePetri(int[] marcaInicial, int[][] matrizDeIncidencia) {
 
         this.marcaActual = marcaInicial;
         this.matrizDeIncidencia = matrizDeIncidencia;
         this.transiciones = new boolean[matrizDeIncidencia[0].length]; //TRUE = SENSIBILIZADA, FALSE = NO SENSIBILIZDA
+        crearExtendida();
         actualizarSensibilizadas();
+    }
+
+    private void crearExtendida() {
+        VectorQ Q = new VectorQ(marcaActual.length);
+        VSensibilizadas E = new VSensibilizadas(this.matrizDeIncidencia, this.marcaActual);
+        this.transicionList = new ArrayList<Transicion>();
+        for(int i = 0; i < E.getE().length; i++){
+            transicionList.add(new TransicionComun(i));
+            if(E.getE()[i] == 1)
+        }
+        VSensibilizadasTiempo Z = new VSensibilizadasTiempo()
     }
 
     public boolean[] getTransiciones() {

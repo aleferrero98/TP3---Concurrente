@@ -57,7 +57,7 @@ public class OperadorConMatrices {
         int[][] bc = traspuesta(b);
         contenedor = toVector(multiplicar(a, bc));
     }
-    
+
 
     public int[][] traspuesta(int[][] mat) {
         if (mat == null) throw new NullPointerException("matriz nula!");

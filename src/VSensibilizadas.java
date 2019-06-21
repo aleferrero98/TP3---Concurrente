@@ -32,6 +32,6 @@ public class VSensibilizadas {
     }
 
     public void sensibilizadasTemporales(){
-        if(Transicion.esTemporal){}
+        if(Transicion.esTemporal()){}
     }
 }

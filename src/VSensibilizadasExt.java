@@ -5,8 +5,8 @@ public class VSensibilizadasExt {
     private VSensibilizadas E;
     private OperadorConMatrices op;
 
-    public VSensibilizadasExt(int size, VSensibilizadas E,VSensibilizadasArcInhib B,VSensibilizadasTiempo Z){
-        this.Ex = new int[size];
+    public VSensibilizadasExt(VSensibilizadas E,VSensibilizadasArcInhib B,VSensibilizadasTiempo Z){
+        this.Ex = new int[E.getE().length];
         this.E = E;
         this.B = B;
         this.Z = Z;
