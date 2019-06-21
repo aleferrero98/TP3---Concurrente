@@ -1,4 +1,5 @@
 public class VSensibilizadas {
+
     int[] E;
     int[] marcaActual;
     int[][] matrizDeIncidencia;
@@ -25,5 +26,12 @@ public class VSensibilizadas {
     }
     private void crearE(){
         actualizarSensibilizadas();
+    }
+    public int[] getE() {
+        return E;
+    }
+
+    public void sensibilizadasTemporales(){
+        if(Transicion.esTemporal){}
     }
 }

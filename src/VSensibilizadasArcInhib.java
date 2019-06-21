@@ -14,19 +14,28 @@ public class VSensibilizadasArcInhib {
                                                     { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
                                                     { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
     };
-    private int[] Q;
+    private VectorQ Q;
     private int[] B;
     private OperadorConMatrices op;
+    private int[] marcaActual;
 
-    public VSensibilizadasArcInhib(int[] Q){
+    public VSensibilizadasArcInhib(VectorQ Q,int[] marcaActual){
         this.Q=Q;
         this.op = new OperadorConMatrices();
+        this.marcaActual=marcaActual;
     }
     public void actualizar(){
-        Q.actualizar();
-        B.actualizarDentro();
+        Q.actualizar(marcaActual);
+        actualizarDentro();
     }
     private void actualizarDentro(){
-        B=op.multiplicar(matrizInhibicionH,Q);
+
+        op.multiplicar(matrizInhibicionH,Q.getQ(),B);
     }
+
+    public int[] getB() {
+        return B;
+    }
+
+
 }

@@ -1,16 +1,41 @@
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class VSensibilizadasTiempo {
-    int[] temporizadas;
-    public VSensibilizadasTiempo(){
-        temporizadas = new int[]{1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0};
+
+    private int[] Z;
+    private ArrayList<TransicionConTiempo> transicionesConTiempo;
+
+    public VSensibilizadasTiempo(List<Transicion> transiciones){
+        transicionesConTiempo=new ArrayList<>();
+        crearTransicionesConTiempo(transiciones);
+        Z = new int[transiciones.size()];
+    }
+    private void setearZ(){
+        for(int i=0;i<Z.length;i++){
+            Z[i]=1;
+        }
+    }
+    private void crearTransicionesConTiempo(List<Transicion> transiciones) {
+        for(Transicion recorrer : transiciones){
+            if(recorrer.esTemporal()){
+                transicionesConTiempo.add((TransicionConTiempo) recorrer);
+            }
+        }
     }
 
-    public void tiempo(){
-        Calendar today2 = Calendar.getInstance();
-        int horas = today2.get(Calendar.HOUR_OF_DAY);
-        int minutos = today2.get(Calendar.MINUTE);
-        int segundos = today2.get(Calendar.SECOND);
-        int milisegundos = today2.get(Calendar.MILLISECOND);
+    public void actualizar(){
+        setearZ();
+        for(TransicionConTiempo recorrer : transicionesConTiempo){
+            if(!recorrer.estaAdentroDeVentana(inicioSensibilizado,recorrer.getLimiteInf(),recorrer.getLimiteSup())){
+                Z[recorrer.getID()]=0;
+            }
+        }
     }
+
+    public int[] getZ() {
+        return Z;
+    }
+
 }
