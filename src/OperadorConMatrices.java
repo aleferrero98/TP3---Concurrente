@@ -99,4 +99,12 @@ public class OperadorConMatrices {
     return vect;
     }
 
+    public int[] sumar(int[] a, int[] b){
+        int[] resultado = new int[a.length];
+        for(int i=0; i < a.length; i++){
+            resultado[i] = a[i] + b[i];
+        }
+        return resultado;
+    }
+
 }

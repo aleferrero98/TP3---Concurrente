@@ -1,18 +1,23 @@
+import java.util.Calendar;
+import java.util.List;
+
 public class VSensibilizadas {
 
-    int[] E;
-    int[] marcaActual;
-    int[][] matrizDeIncidencia;
+    private int[] E;
+    private int[] marcaActual;
+    private int[][] matrizDeIncidencia;
+    private List<Transicion> transicionList;
 
-    public VSensibilizadas(int[][] matrizDeIncidencia, int[] marcaInicial){
+    public VSensibilizadas(int[][] matrizDeIncidencia, int[] marcaInicial, List<Transicion> transicionList){
         this.matrizDeIncidencia=matrizDeIncidencia;
         marcaActual=marcaInicial;
+        this.transicionList = transicionList;
         crearE();
     }
 
-    public void actualizarSensibilizadas() {       //actualiza el vector de las transiciones que estan sensibilizadas
+    public void actualizar() {       //actualiza el vector de las transiciones que estan sensibilizadas
         for (int i = 0; i < E.length ; i++) {
-            this.E[i] = esSensibilizadoInterno(i) ? 1 : 0;
+            this.E[i] = esSensibilizadoInterno(transicionList.get(i).getID()) ? 1 : 0;
         }
     }
 
@@ -25,13 +30,18 @@ public class VSensibilizadas {
         return true;
     }
     private void crearE(){
-        actualizarSensibilizadas();
+        this.E = new int[matrizDeIncidencia[0].length];
+        actualizar();
     }
     public int[] getE() {
         return E;
     }
 
-    public void sensibilizadasTemporales(){
-        if(Transicion.esTemporal()){}
+    public void sensibilizarTemporales(){
+        for (int i = 0; i < E.length ; i++) {
+            if (this.E[i] == 1 && transicionList.get(i).esTemporal()) {     //si el vector de sensibilizadas por tokens tiene 1 y la transicion es temporal se toma el inicio
+                transicionList.get(i).setInicioSensibilizado(Calendar.getInstance());
+            }
+        }
     }
 }

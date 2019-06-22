@@ -1,11 +1,12 @@
 public class VSensibilizadasExt {
-    private int [] Ex;
+
+    private int[] Ex;
     private VSensibilizadasArcInhib B;
     private VSensibilizadasTiempo Z;
     private VSensibilizadas E;
     private OperadorConMatrices op;
 
-    public VSensibilizadasExt(VSensibilizadas E,VSensibilizadasArcInhib B,VSensibilizadasTiempo Z){
+    public VSensibilizadasExt(VSensibilizadas E, VSensibilizadasArcInhib B, VSensibilizadasTiempo Z) {
         this.Ex = new int[E.getE().length];
         this.E = E;
         this.B = B;
@@ -13,13 +14,19 @@ public class VSensibilizadasExt {
         this.op = new OperadorConMatrices();
 
     }
+
     public void actualizar() {
-        actualizar();
+        E.actualizar();
         B.actualizar();
         Z.actualizar();
         actualizarDentro();
     }
-    private void actualizarDentro(){
-        Ex = op.and(op.and(E.getE(),B.getB()),Z.getZ());
+
+    private void actualizarDentro() {
+        Ex = op.and(op.and(E.getE(), B.getB()), Z.getZ());
+    }
+
+    public int[] getEx() {
+        return Ex;
     }
 }
