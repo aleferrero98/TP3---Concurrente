@@ -27,15 +27,30 @@ public class Main {
                                             { 0,  1,  0,  0,  0,  0,  0,  0,  0, -1,  0}
         };
 
-        Politicas politica = new Politicas();
+        RedDePetri rdp = new RedDePetri(marcaInicial, matrizDeIncidencia);
+        Politicas politica = new Politicas(rdp);
+
         //SETEAR PRIORIDADES A CADA TRANSICION
-        for(int i = 0; i < matrizDeIncidencia[0].length; i++){
+       /* for(int i = 0; i < matrizDeIncidencia[0].length; i++){
             politica.addPrioridad(i , 0);
         }
+        */
+        politica.addPrioridad(0 , 0);
+        politica.addPrioridad(1 , 0);
+        politica.addPrioridad(2 , 0);
+        politica.addPrioridad(3 , 0);
+        politica.addPrioridad(4 , 0);
+
         politica.addPrioridad(5 , 1);  // T5 y T6 tienen mayor prioridad, para descongestionar el buffer
         politica.addPrioridad(6 , 1);
+        politica.addPrioridad(7 , 1);   //OPCIONAL: T7 y T8 mayor prioridad para que los nucleos esten mayor tiempo trabajando
+        politica.addPrioridad(8 , 1);
+
+        politica.addPrioridad(9 , 0);
+        politica.addPrioridad(10, 0);
 
         Monitor monitor = new Monitor(new RedDePetri(marcaInicial, matrizDeIncidencia), politica);
+
 
 
 

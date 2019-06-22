@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RedDePetri {
+
     private int[] marcaActual;
     private int[][] matrizDeIncidencia;
    // private boolean[] transiciones;     EN LUGAR DE ESTO SE VE Ex
@@ -13,7 +14,6 @@ public class RedDePetri {
 
         this.marcaActual = marcaInicial;
         this.matrizDeIncidencia = matrizDeIncidencia;
-        //this.transiciones = new boolean[matrizDeIncidencia[0].length]; //TRUE = SENSIBILIZADA, FALSE = NO SENSIBILIZDA
         crearExtendida();
         actualizarVectoresSensibilizadas();
     }
@@ -63,5 +63,17 @@ public class RedDePetri {
         }
         vectorDisparo[transicion]=1;        //tiene 1 solo en la transicion que se desea disparar
         return vectorDisparo;
+    }
+
+    public List<Transicion> getTransiciones(){
+        return transicionList;
+    }
+
+    public boolean esSensibilizada(int transicion){     //le pregunta a la transicion con tal subindice(ID) si esta sensibilizada
+        return transicionList.get(transicion).esSensibilizada();
+    }
+
+    public int[] getMarcaActual() {
+        return marcaActual;
     }
 }

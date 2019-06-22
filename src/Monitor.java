@@ -10,30 +10,24 @@ public class Monitor {
 
     public Monitor(RedDePetri red, Politicas politicas){
         this.RdP = red;
-        this.VariablesDeCondicion = new CVSemaforo[RdP.getTransiciones().length];
+        this.VariablesDeCondicion = new CVSemaforo[RdP.getTransiciones().size()];  //se generan tantas variables de condicion como transiciones haya en la RdP
         this.politica = politicas;
         GenerarVarCond();
 
     }
 
-
-    public void entrar(int transicion){ //dispara una transicion sin devolver el mutex
+    public void disparar(int transicion){ //dispara una transicion
         try {
             mutex.acquire();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        while(!(RdP.esSensibilizado(transicion))){
+        while(!(RdP.esSensibilizada(transicion))){
             VariablesDeCondicion[transicion].Delay();       //bloqueo
         }
         this.RdP.disparar(transicion); //dispara la transicion actualizando asi el estado
-
-    }
-
-    public void salir(){
         desbloquearUno();          //desbloqueo otro hilo
         mutex.release();        //devuelve mutex
-
     }
 
 
@@ -49,7 +43,7 @@ public class Monitor {
         // que tienen hilos queriendo dispararlas
         ArrayList<Integer> desbloqueables = new ArrayList<>();
         for(int i = 0; i < this.VariablesDeCondicion.length; i++){
-            if( !(VariablesDeCondicion[i].Empty()) && RdP.esSensibilizado(i)){
+            if( !(VariablesDeCondicion[i].Empty()) && RdP.esSensibilizada(i)){
                 desbloqueables.add(i);
             }
         }
