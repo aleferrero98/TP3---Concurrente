@@ -5,7 +5,7 @@ import java.util.Calendar;
 
 public class Main {
 
-    private static final int CANT_EXECUTORS = 1;
+    private static final int CANT_EXECUTORS = 4;
 
     public static void main(String[] args) throws InterruptedException {
         Calendar today = Calendar.getInstance();
@@ -13,7 +13,7 @@ public class Main {
         System.out.println(today.get(Calendar.HOUR_OF_DAY)+":"+today.get(Calendar.MINUTE)+":"+today.get(Calendar.SECOND)+":"+today.get(Calendar.MILLISECOND));
         int duracionSeg, duracionMin;
 
-        Archivo archivo = new Archivo();
+       // Archivo archivo = new Archivo();
 
         int[] marcaInicial = {0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1};
 
@@ -48,8 +48,8 @@ public class Main {
 
         politica.addPrioridad(5 , 1);  // T5 y T6 tienen mayor prioridad, para descongestionar el buffer
         politica.addPrioridad(6 , 1);
-        politica.addPrioridad(7 , 1);   //OPCIONAL: T7 y T8 mayor prioridad para que los nucleos esten mayor tiempo trabajando
-        politica.addPrioridad(8 , 1);
+        politica.addPrioridad(7 , 0);   //OPCIONAL: T7 y T8 mayor prioridad para que los nucleos esten mayor tiempo trabajando
+        politica.addPrioridad(8 , 0);
 
         politica.addPrioridad(9 , 0);
         politica.addPrioridad(10, 0);

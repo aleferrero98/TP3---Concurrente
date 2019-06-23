@@ -21,7 +21,7 @@ public class VSensibilizadasExt {
         Z.actualizar();
         actualizarDentro();
     }
-
+        //Ex = E and complemento(B) and Z
     private void actualizarDentro() {
         Ex = op.and(op.and(E.getE(), op.complementar(B.getB())), Z.getZ());
     }

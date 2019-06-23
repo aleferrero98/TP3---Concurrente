@@ -2,7 +2,7 @@ public class Executor extends Thread {
     private Monitor monitor;
     private static boolean finalizar;
 
-    public Executor(Monitor monitor){
+    public Executor(Monitor monitor){ //Hilo que ejecuta las transiciones
         this.monitor = monitor;
         finalizar = false;
     }
@@ -12,8 +12,8 @@ public class Executor extends Thread {
     }
 
     @Override
-    public void run() {
-        while (!finalizar){
+    public void run() {     //dispara alguna transicion de acuerdo a la prioridad y si esta sensibilizada
+        while (!finalizar){ //finaliza cuando se hayan ejecutado una cierta cantidad de tareas
             try{
                 monitor.dispararAlguno();
             }catch (Exception e){

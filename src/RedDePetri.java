@@ -18,13 +18,13 @@ public class RedDePetri {
         actualizarVectoresSensibilizadas();
     }
 
-    private void crearExtendida() {
+    private void crearExtendida() { //crea  Q, Z, E, B y el Ex, todos los vectores para ver si esta sensibilizada
         VectorQ Q = new VectorQ(marcaActual);
         this.transicionList = new ArrayList<Transicion>();
         for(int i = 0; i < matrizDeIncidencia[0].length; i++){   //se crean todas las transiciones(comunes o con tiempo)
             switch(i) {
                 case 0:     //transicion temporal Arrival_rate
-                    transicionList.add(new TransicionConTiempo(i,5,100000000));  //limite superior muy grande
+                    transicionList.add(new TransicionConTiempo(i,5,1000000000));  //limite superior muy grande
                     break;
                 case 7:     //transicion temporal Service_rateN1
                     transicionList.add(new TransicionConTiempo(i,7,1000000000));
@@ -48,12 +48,12 @@ public class RedDePetri {
     }
 
 
-    public void disparar(int transicion) throws IllegalDisparoException {  //dispara una transicion modificando la marcaActual
+    public void disparar(int transicion) throws IllegalDisparoException {  //dispara una transicion modificando la marcaActual con la ec. generalizada
         OperadorConMatrices op = new OperadorConMatrices();
         int[] contenedor = new int[marcaActual.length];
-        if(Ex.getEx()[transicion]==1){      //si en el lugar de la transicion hay un 1 es porque dicha transicion esta sensibilizada
+        if(esSensibilizada(transicion)){      //verifica si la transicion esta sensibilizada a partir de Ex
             op.multiplicar(matrizDeIncidencia, op.and(generarVectorDisparo(transicion),this.Ex.getEx()), contenedor);
-            marcaActual = op.sumar(marcaActual, contenedor);
+            marcaActual = op.sumar(marcaActual, contenedor); //Ecuacion de estado generalizada: Mj+1 = Mj + I*(sigma and Ex)
             actualizarVectoresSensibilizadas();
         }else{
             throw new IllegalDisparoException();
@@ -74,14 +74,14 @@ public class RedDePetri {
     }
 
     public boolean esSensibilizada(int transicion){     //le pregunta a la transicion con tal subindice(ID) si esta sensibilizada
-        return transicionList.get(transicion).esSensibilizada();
+        return (Ex.getEx()[transicion]!=0);
     }
 
     public int[] getMarcaActual() {
         return marcaActual;
     }
 
-    public ArrayList<Integer> getSensibilizadas(){
+    public ArrayList<Integer> getSensibilizadas(){      //devuelve una lista de todas las transiciones sensibilizadas(comunes y temporales)
         ArrayList<Integer> sensibilizadas = new ArrayList<>();
         for(Transicion transicion: transicionList) {
             if(transicion.esSensibilizada()) sensibilizadas.add(transicion.getID());

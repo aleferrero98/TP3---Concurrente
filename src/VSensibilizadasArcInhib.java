@@ -24,13 +24,13 @@ public class VSensibilizadasArcInhib {
         this.op = new OperadorConMatrices();
         this.marcaActual=marcaActual;
     }
-    public void actualizar(){
+    public void actualizar(){ //Actualiza B a partir de Q y la matriz de inhibicion
         Q.actualizar();
         actualizarDentro();
     }
     private void actualizarDentro(){
 
-        op.multiplicar(op.traspuesta(matrizInhibicionH),Q.getQ(),B);
+        op.multiplicar(op.traspuesta(matrizInhibicionH),Q.getQ(),B);  //B = H' * Q
     }
 
     public int[] getB() {

@@ -17,10 +17,11 @@ public class VSensibilizadas {
 
     }
 
-    public void actualizar() {       //actualiza el vector de las transiciones que estan sensibilizadas
+    public void actualizar() {       //actualiza el vector de las transiciones que estan sensibilizadas por token y LA LISTA DE TRANSICIONES TAMBIEN
         for (int i = 0; i < E.length ; i++) {
                 Eaux[i] = E[i];
-            this.E[i] = esSensibilizadoInterno(transicionList.get(i).getID()) ? 1 : 0;
+            this.E[i] = (esSensibilizadoInterno(transicionList.get(i).getID())) ? 1 : 0; //actualiza vector
+            this.transicionList.get(i).setSensibilizada(E[i]==1);   //setea campo de sensibilizado de transicion
         }
         sensibilizarTemporales(); //se toma la hora de inicio de sensibilizado de las transiciones temporales
     }
