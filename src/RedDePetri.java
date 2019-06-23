@@ -50,9 +50,9 @@ public class RedDePetri {
 
     public void disparar(int transicion) throws IllegalDisparoException {  //dispara una transicion modificando la marcaActual con la ec. generalizada
         OperadorConMatrices op = new OperadorConMatrices();
-        int[] contenedor = new int[marcaActual.length];
+        int[] contenedor;
         if(esSensibilizada(transicion)){      //verifica si la transicion esta sensibilizada a partir de Ex
-            op.multiplicar(matrizDeIncidencia, op.and(generarVectorDisparo(transicion),this.Ex.getEx()), contenedor);
+            contenedor = op.multiplicar(matrizDeIncidencia, op.and(generarVectorDisparo(transicion),this.Ex.getEx()));
             marcaActual = op.sumar(marcaActual, contenedor); //Ecuacion de estado generalizada: Mj+1 = Mj + I*(sigma and Ex)
             actualizarVectoresSensibilizadas();
         }else{

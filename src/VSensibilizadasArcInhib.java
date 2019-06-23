@@ -30,7 +30,7 @@ public class VSensibilizadasArcInhib {
     }
     private void actualizarDentro(){
 
-        op.multiplicar(op.traspuesta(matrizInhibicionH),Q.getQ(),B);  //B = H' * Q
+        B = op.multiplicar(op.traspuesta(matrizInhibicionH),Q.getQ());  //B = H' * Q
     }
 
     public int[] getB() {

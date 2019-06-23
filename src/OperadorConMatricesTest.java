@@ -13,6 +13,7 @@ public class OperadorConMatricesTest {
     int[] v2 = {1,1,0,0};
     int[][] m1 = {{1,1,1,1},{0,1,0,1},{0,0,0,0}};
     int[][] m2 = {{0,1,1,0},{0,0,1,1},{1,1,0,1}};
+    int[] vectC = {1, 2, 3, 1, 2};
     private OperadorConMatrices op;
 
     @Before
@@ -51,5 +52,42 @@ public class OperadorConMatricesTest {
         assertArrayEquals(esperado,op.sumar(vectA,vectB));
 
 
+    }
+
+    @Test
+    public void trasponerMatriz(){
+        int[][] esperado = {{1,3,1,0,0},
+                {2,2,1,0,1},
+                {3,1,1,0,0}};
+        assertArrayEquals(esperado,op.traspuesta(matA));
+
+    }
+
+    @Test
+    public void trasponerVector(){
+        int[][] esperado = {{1},{2},{3},{1},{2}};
+        assertArrayEquals(esperado,op.traspuesta(vectC));
+    }
+
+    @Test
+    public void toVector(){
+        int[] esperado = vectC;
+        int[][] matrizColumna = {{1},{2},{3},{1},{2}};
+        assertArrayEquals(esperado,op.toVector(matrizColumna));
+    }
+
+    @Test
+    public void toVector2(){
+        int[] esperado = vectC;
+        int[][] matrizFila = {{1,2,3,1,2}};
+        assertArrayEquals(esperado,op.toVector(matrizFila));
+    }
+
+    @Test
+    public void multiplicarMatrizVector(){
+        int[] esperado = {10,11,8};
+        int[] contenedor;
+       contenedor= op.multiplicar(op.traspuesta(matA),vectC);
+        assertArrayEquals(esperado,contenedor);
     }
 }

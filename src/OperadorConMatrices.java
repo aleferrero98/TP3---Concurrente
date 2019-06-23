@@ -51,11 +51,9 @@ public class OperadorConMatrices {
         return resultado;
     }
 
-    public void multiplicar(int[][] a, int[] b, int[] contenedor) { //dim(a)=nxm dim(b)=mx1 dim(r)=nx1
-        if(contenedor == null) throw new NullPointerException("contenedor nulo!");
-        if(contenedor.length != a.length)throw new IndexOutOfBoundsException("contenedor no valido operacion imposible!");
+    public int[] multiplicar(int[][] a, int[] b) { //dim(a)=nxm dim(b)=mx1 dim(r)=nx1
         int[][] bc = traspuesta(b);
-        contenedor = toVector(multiplicar(a, bc));
+        return toVector(multiplicar(a, bc));
     }
 
 
@@ -100,6 +98,8 @@ public class OperadorConMatrices {
     }
 
     public int[] sumar(int[] a, int[] b){
+        if(a == null || b == null)throw new NullPointerException("vector nulo!");
+        if (a.length != b.length) throw new IndexOutOfBoundsException("diferente formato operacion imposible!");
         int[] resultado = new int[a.length];
         for(int i=0; i < a.length; i++){
             resultado[i] = a[i] + b[i];
@@ -108,6 +108,7 @@ public class OperadorConMatrices {
     }
 
     public int[] complementar(int[] a){
+        if(a == null)throw new NullPointerException("vector nulo!");
         int[] complemento = new int[a.length];
         for(int i=0; i < a.length; i++){
             if(a[i]==0){
