@@ -5,7 +5,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class Temporizador {
-    private Archivo file;
+   /* private Archivo file;
     private ArrayList<LinkedList<Dato>> buffers;
     Consumidor consumidores[];
 
@@ -50,7 +50,7 @@ public class Temporizador {
         timer.schedule(tarea, 0, 30000);    //imprimo cada 30 seg
 
     }
-
+*/
 }
 
 

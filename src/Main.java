@@ -6,6 +6,8 @@ import java.util.LinkedList;
 
 public class Main {
 
+    static final int CANT_EXECUTORS = 1;
+
     public static void main(String[] args) throws InterruptedException {
 
         Archivo archivo = new Archivo();
@@ -49,10 +51,14 @@ public class Main {
         politica.addPrioridad(9 , 0);
         politica.addPrioridad(10, 0);
 
-        Monitor monitor = new Monitor(new RedDePetri(marcaInicial, matrizDeIncidencia), politica);
+        Condicion condicionDeFinalizacion = new Condicion(false);
+        Monitor monitor = new Monitor(new RedDePetri(marcaInicial, matrizDeIncidencia), politica,condicionDeFinalizacion);
 
-
-
+        Executor[] executors = new Executor[CANT_EXECUTORS];
+        for(int i =0; i<CANT_EXECUTORS; i++){
+            executors[i] = new Executor(monitor);
+            executors[i].start();
+        }
 
 
         System.out.println("Fin del hilo Main");
