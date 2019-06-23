@@ -48,13 +48,15 @@ public class RedDePetri {
     }
 
 
-    public void disparar(int transicion) {  //dispara una transicion modificando la marcaActual
+    public void disparar(int transicion) throws IllegalDisparoException {  //dispara una transicion modificando la marcaActual
         OperadorConMatrices op = new OperadorConMatrices();
         int[] contenedor = new int[marcaActual.length];
         if(Ex.getEx()[transicion]==1){      //si en el lugar de la transicion hay un 1 es porque dicha transicion esta sensibilizada
             op.multiplicar(matrizDeIncidencia, op.and(generarVectorDisparo(transicion),this.Ex.getEx()), contenedor);
             marcaActual = op.sumar(marcaActual, contenedor);
             actualizarVectoresSensibilizadas();
+        }else{
+            throw new IllegalDisparoException();
         }
     }
 

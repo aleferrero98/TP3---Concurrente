@@ -11,7 +11,7 @@ public class VSensibilizadas {
 
     public VSensibilizadas(int[][] matrizDeIncidencia, int[] marcaInicial, List<Transicion> transicionList){
         this.matrizDeIncidencia=matrizDeIncidencia;
-        marcaActual=marcaInicial;
+        this.marcaActual=marcaInicial;
         this.transicionList = transicionList;
         crearE();
 
