@@ -44,7 +44,7 @@ public class VSensibilizadas {
 
     private void sensibilizarTemporales(){
         for (int i = 0; i < E.length ; i++) {
-            if (this.E[i] == 1 && transicionList.get(i).esTemporal() && Eaux[i]==0) {     //si el vector de sensibilizadas por tokens tiene 1 y la transicion es temporal se toma el inicio
+            if (this.E[i] == 1 && transicionList.get(i).esTemporizada() && Eaux[i]==0) {     //si el vector de sensibilizadas por tokens tiene 1 y la transicion es temporal se toma el inicio
                 transicionList.get(i).setInicioSensibilizado(Calendar.getInstance().getTimeInMillis());  //si la transicion estaba desensibilizada(por token), luego se sensibiliza y es temporal
             }                                                                               //tomo la hora de inicio en milisegundos
         }

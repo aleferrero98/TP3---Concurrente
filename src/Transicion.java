@@ -3,11 +3,11 @@ import java.util.Calendar;
 public interface Transicion {
     public int getID();
 
-    public boolean esTemporal();
+    public boolean esTemporizada();
 
     public boolean esSensibilizada();
 
-    public void setSensibilizadas(boolean sensibilizar);
+    public void setSensibilizada(boolean sensibilizar);
 
     public void setInicioSensibilizado(long inicioSensibilizado);
 }

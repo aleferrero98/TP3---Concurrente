@@ -3,11 +3,11 @@ import java.util.HashMap;
 
 public class Politicas {
     private HashMap<Integer, Integer> prioridades;
-    private RedDePetri rdp;
+    private RedDePetri RdP;
 
-    public Politicas(RedDePetri rdp) {
+    public Politicas(RedDePetri RdP) {
         this.prioridades = new HashMap<>();
-        this.rdp = rdp;
+        this.RdP = RdP;
 
     }
 
@@ -23,7 +23,7 @@ public class Politicas {
             }
         }
         if(eleccion==5 || eleccion==6){                     //si se elige la transicion 5 o 6 se decide entre una u otra de acuerdo a la cantidad de tokens..
-            return resolverConflicto(rdp.getMarcaActual()); //...en CPU_buffer1 y CPU_buffer2
+            return resolverConflicto(RdP.getMarcaActual()); //...en CPU_buffer1 y CPU_buffer2
         }
         return eleccion;        //sino se retorna la otra transicion elegida
     }

@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 public class VSensibilizadasTiempo {
@@ -19,7 +18,7 @@ public class VSensibilizadasTiempo {
     }
     private void crearTransicionesConTiempo(List<Transicion> transiciones) {
         for(Transicion recorrer : transiciones){
-            if(recorrer.esTemporal()){
+            if(recorrer.esTemporizada()){
                 transicionesConTiempo.add((TransicionConTiempo) recorrer);
             }
         }

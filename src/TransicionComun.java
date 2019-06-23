@@ -15,7 +15,7 @@ public class TransicionComun implements Transicion {
         return ID;
     }
     @Override
-    public boolean esTemporal(){
+    public boolean esTemporizada(){
         return esTemporizada;
     }
     @Override
@@ -28,10 +28,12 @@ public class TransicionComun implements Transicion {
     }
 
     @Override
-    public void setSensibilizadas(boolean sensibilizar) {
-        this.esSensibilizada = esSensibilizada;
+    public void setSensibilizada(boolean sensibilizar) {
+        this.esSensibilizada = sensibilizar;
     }
 
     @Override
-    public void setInicioSensibilizado(long inicioSensibilizado){}
+    public void setInicioSensibilizado(long inicioSensibilizado){
+        throw new IllegalStateException("Esta transicion: "+this.ID+" no es temporizada");
+    }
 }

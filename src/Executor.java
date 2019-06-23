@@ -18,6 +18,7 @@ public class Executor extends Thread {
                 monitor.dispararAlguno();
             }catch (Exception e){
                 System.out.println("ocurrio: "+ e.getMessage());
+                e.printStackTrace();
             }
         }
     }
