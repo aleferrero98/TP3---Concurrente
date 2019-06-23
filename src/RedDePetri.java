@@ -76,4 +76,12 @@ public class RedDePetri {
     public int[] getMarcaActual() {
         return marcaActual;
     }
+
+    public ArrayList<Integer> getSensibilizadas(){
+        ArrayList<Integer> sensibilizadas = new ArrayList<>();
+        for(Transicion transicion: transicionList) {
+            if(transicion.esSensibilizada()) sensibilizadas.add(transicion.getID());
+        }
+        return sensibilizadas;
+    }
 }
