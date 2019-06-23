@@ -1,6 +1,6 @@
 public class VectorQ {
 
-    int [] Q;
+    private int [] Q;
 
     public VectorQ(int size){
         Q = new int[size];

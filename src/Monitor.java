@@ -21,7 +21,7 @@ public class Monitor {
         this.tareasN2 = 0;
     }
 
-    public void disparar(int transicion){ //SACAR DESPUES
+    public void disparar(int transicion) throws IllegalDisparoException { //SACAR DESPUES
         try {
             mutex.acquire();
         } catch (InterruptedException e) {
@@ -61,7 +61,7 @@ public class Monitor {
         }
     }
 
-    public void dispararAlguno() {
+    public void dispararAlguno() throws IllegalDisparoException {
         { //dispara una transicion
             try {
                 mutex.acquire();
