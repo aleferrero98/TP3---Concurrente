@@ -28,7 +28,7 @@ public class VSensibilizadasTiempo {
     public void actualizar(){
         setearZ();
         for(TransicionConTiempo recorrer : transicionesConTiempo){
-            if(!recorrer.estaAdentroDeVentana()){
+            if(!recorrer.estaAdentroDeVentana(recorrer.getLimiteInf(),recorrer.getLimiteSup())){
                 Z[recorrer.getID()]=0;
             }
         }
