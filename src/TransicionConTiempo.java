@@ -21,7 +21,7 @@ public class TransicionConTiempo extends TransicionComun {
         return LimiteSup;
     }
 
-    public boolean estaAdentroDeVentana(int LimiteInf, int LimiteSup){
+    public boolean estaAdentroDeVentana(){
         Calendar tiempoSensibilizado = Calendar.getInstance();
         long diferencia = tiempoSensibilizado.getTimeInMillis()-inicioSensibilizado.getTimeInMillis();
         if (diferencia>LimiteInf && diferencia<LimiteSup) {
