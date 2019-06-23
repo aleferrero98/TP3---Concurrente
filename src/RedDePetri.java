@@ -39,6 +39,8 @@ public class RedDePetri {
         }
         VSensibilizadas E = new VSensibilizadas(this.matrizDeIncidencia, this.marcaActual, this.transicionList);
         VSensibilizadasTiempo Z = new VSensibilizadasTiempo(transicionList);
+        VSensibilizadasArcInhib B = new VSensibilizadasArcInhib(Q,marcaActual);
+        Ex = new VSensibilizadasExt(E,B,Z);
     }
 
     private void actualizarVectoresSensibilizadas() {       //actualiza el vector Ex y todos los vectores que lo componen (E, B y Z)

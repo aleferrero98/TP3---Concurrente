@@ -21,7 +21,7 @@ public class Monitor {
         this.tareasN2 = 0;
     }
 
-    public void disparar(int transicion){ //dispara una transicion
+    public void disparar(int transicion){ //SACAR DESPUES
         try {
             mutex.acquire();
         } catch (InterruptedException e) {

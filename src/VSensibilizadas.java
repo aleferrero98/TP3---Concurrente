@@ -7,16 +7,19 @@ public class VSensibilizadas {
     private int[] marcaActual;
     private int[][] matrizDeIncidencia;
     private List<Transicion> transicionList;
+    private int[] Eaux;
 
     public VSensibilizadas(int[][] matrizDeIncidencia, int[] marcaInicial, List<Transicion> transicionList){
         this.matrizDeIncidencia=matrizDeIncidencia;
         marcaActual=marcaInicial;
         this.transicionList = transicionList;
         crearE();
+
     }
 
     public void actualizar() {       //actualiza el vector de las transiciones que estan sensibilizadas
         for (int i = 0; i < E.length ; i++) {
+
             this.E[i] = esSensibilizadoInterno(transicionList.get(i).getID()) ? 1 : 0;
         }
     }
@@ -31,6 +34,7 @@ public class VSensibilizadas {
     }
     private void crearE(){
         this.E = new int[matrizDeIncidencia[0].length];
+        this.Eaux = new int[matrizDeIncidencia[0].length];
         actualizar();
     }
     public int[] getE() {

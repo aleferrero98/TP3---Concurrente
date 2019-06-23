@@ -21,6 +21,7 @@ public class VSensibilizadasArcInhib {
 
     public VSensibilizadasArcInhib(VectorQ Q,int[] marcaActual){
         this.Q=Q;
+        this.B = new int[matrizInhibicionH.length];
         this.op = new OperadorConMatrices();
         this.marcaActual=marcaActual;
     }
