@@ -4,13 +4,14 @@ public class TransicionConTiempo extends TransicionComun {
 
     private int LimiteInf;
     private int LimiteSup;
-    private Calendar inicioSensibilizado;
+    private long inicioSensibilizado;
 
     public TransicionConTiempo(int ID,int LimiteInf,int LimiteSup){
         super(ID);
         this.LimiteInf=LimiteInf;
         this.LimiteSup=LimiteSup;
         super.setEsTemporizada(true);
+        setInicioSensibilizado(0);
     }
 
     public int getLimiteInf() {
@@ -22,15 +23,16 @@ public class TransicionConTiempo extends TransicionComun {
     }
 
     public boolean estaAdentroDeVentana(){
-        Calendar tiempoSensibilizado = Calendar.getInstance();
-        long diferencia = tiempoSensibilizado.getTimeInMillis()-inicioSensibilizado.getTimeInMillis();
+        long tiempoSensibilizado = Calendar.getInstance().getTimeInMillis();
+        if(inicioSensibilizado==0) return false;
+        long diferencia = tiempoSensibilizado - inicioSensibilizado;
         if (diferencia>LimiteInf && diferencia<LimiteSup) {
             return true;
         }
         else{return false;}
     }
     @Override
-    public void setInicioSensibilizado(Calendar inicioSensibilizado) {
+    public void setInicioSensibilizado(long inicioSensibilizado) {
         this.inicioSensibilizado = inicioSensibilizado;
     }
 

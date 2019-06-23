@@ -107,4 +107,14 @@ public class OperadorConMatrices {
         return resultado;
     }
 
+    public int[] complementar(int[] a){
+        int[] complemento = new int[a.length];
+        for(int i=0; i < a.length; i++){
+            if(a[i]==0){
+                complemento[i]=1;
+            }else complemento[i]=0;
+        }
+        return complemento;
+    }
+
 }

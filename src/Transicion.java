@@ -9,5 +9,5 @@ public interface Transicion {
 
     public void setSensibilizadas(boolean sensibilizar);
 
-    public void setInicioSensibilizado(Calendar inicioSensibilizado);
+    public void setInicioSensibilizado(long inicioSensibilizado);
 }

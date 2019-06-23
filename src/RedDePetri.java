@@ -19,7 +19,7 @@ public class RedDePetri {
     }
 
     private void crearExtendida() {
-        VectorQ Q = new VectorQ(marcaActual.length);
+        VectorQ Q = new VectorQ(marcaActual);
         this.transicionList = new ArrayList<Transicion>();
         for(int i = 0; i < matrizDeIncidencia[0].length; i++){   //se crean todas las transiciones(comunes o con tiempo)
             switch(i) {

@@ -33,5 +33,5 @@ public class TransicionComun implements Transicion {
     }
 
     @Override
-    public void setInicioSensibilizado(Calendar inicioSensibilizado){}
+    public void setInicioSensibilizado(long inicioSensibilizado){}
 }

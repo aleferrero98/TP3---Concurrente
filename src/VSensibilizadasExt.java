@@ -23,7 +23,7 @@ public class VSensibilizadasExt {
     }
 
     private void actualizarDentro() {
-        Ex = op.and(op.and(E.getE(), B.getB()), Z.getZ());
+        Ex = op.and(op.and(E.getE(), op.complementar(B.getB())), Z.getZ());
     }
 
     public int[] getEx() {

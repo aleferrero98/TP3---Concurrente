@@ -1,16 +1,16 @@
 public class VectorQ {
 
-    private int [] Q;
+    private int[] Q;
+    private int[] marcaActual;
 
-    public VectorQ(int size){
-        Q = new int[size];
+    public VectorQ(int[] marcaActual){
+        this.marcaActual = marcaActual;
+        Q = new int[marcaActual.length];
     }
 
-    public void actualizar(int[] marcaActual){
+    public void actualizar(){
         for(int i=0;i<marcaActual.length;i++){
-            if(marcaActual[i]!=0){
-            Q[i]=0;
-            }
+            Q[i]=(marcaActual[i]==0)? 1 : 0;
         }
     }
 
