@@ -20,9 +20,8 @@ public class RedDePetri {
 
     private void crearExtendida() {
         VectorQ Q = new VectorQ(marcaActual.length);
-        VSensibilizadas E = new VSensibilizadas(this.matrizDeIncidencia, this.marcaActual, this.transicionList);
         this.transicionList = new ArrayList<Transicion>();
-        for(int i = 0; i < E.getE().length; i++){   //se crean todas las transiciones(comunes o con tiempo)
+        for(int i = 0; i < matrizDeIncidencia[0].length; i++){   //se crean todas las transiciones(comunes o con tiempo)
             switch(i) {
                 case 0:     //transicion temporal Arrival_rate
                     transicionList.add(new TransicionConTiempo(i,5,100000000));  //limite superior muy grande
@@ -38,6 +37,7 @@ public class RedDePetri {
                     break;
             }
         }
+        VSensibilizadas E = new VSensibilizadas(this.matrizDeIncidencia, this.marcaActual, this.transicionList);
         VSensibilizadasTiempo Z = new VSensibilizadasTiempo(transicionList);
     }
 
