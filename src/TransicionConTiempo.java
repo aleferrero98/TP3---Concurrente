@@ -2,31 +2,31 @@ import java.util.Calendar;
 
 public class TransicionConTiempo extends TransicionComun {
 
-    private int LimiteInf;
-    private int LimiteSup;
+    private int limiteInf;
+    private int limiteSup;
     private long inicioSensibilizado;
 
     public TransicionConTiempo(int ID,int LimiteInf,int LimiteSup){
         super(ID);
-        this.LimiteInf=LimiteInf;
-        this.LimiteSup=LimiteSup;
+        this.limiteInf =LimiteInf;
+        this.limiteSup =LimiteSup;
         super.setEsTemporizada(true);
         setInicioSensibilizado(0);
     }
 
     public int getLimiteInf() {
-        return LimiteInf;
+        return limiteInf;
     }
 
     public int getLimiteSup() {
-        return LimiteSup;
+        return limiteSup;
     }
 
     public boolean estaAdentroDeVentana(){
         long tiempoSensibilizado = Calendar.getInstance().getTimeInMillis();
         if(inicioSensibilizado==0) return false;
         long diferencia = tiempoSensibilizado - inicioSensibilizado;
-        if (diferencia>LimiteInf && diferencia<LimiteSup) {
+        if (diferencia> limiteInf && diferencia< limiteSup) {
             return true;
         }
         else{return false;}
