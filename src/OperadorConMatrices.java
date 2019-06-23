@@ -64,7 +64,7 @@ public class OperadorConMatrices {
         int[][] traspuesta = new int[mat[0].length][mat.length];
         for (int i = 0; i < mat.length; i++) {
             for (int j = 0; j < mat[0].length; j++) {
-                traspuesta[i][j] = mat[j][i];
+                traspuesta[j][i] = mat[i][j];
             }
         }
         return traspuesta;

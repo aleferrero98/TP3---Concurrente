@@ -4,15 +4,9 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class OperadorConMatricesTest {
-    int[][] matA = {{1,2,3},
-                    {3,2,1},
-            {1,1,1},
-            {0,0,0},
-            {0,1,0}
-    };
-    int[][] matB = {{1,2,3,4,5},
-                    {0,0,0,0,0},
-                    {1,1,1,-1,-1}};
+    int[][] matA = {{1,2,3},{3,2,1},{1,1,1},{0,0,0},{0,1,0}};
+    int[][] matB = {{1,2,3,4,5},{0,0,0,0,0},{1,1,1,-1,-1}};
+
     int[] vectA = {1, 2, 3, 1, 2, 3};
     int[] vectB = {2, 1, 2, 1, 2, 1};
     int[] v1 = {1,0,1,0};
