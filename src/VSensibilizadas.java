@@ -19,9 +19,10 @@ public class VSensibilizadas {
 
     public void actualizar() {       //actualiza el vector de las transiciones que estan sensibilizadas
         for (int i = 0; i < E.length ; i++) {
-
+                Eaux[i] = E[i];
             this.E[i] = esSensibilizadoInterno(transicionList.get(i).getID()) ? 1 : 0;
         }
+        sensibilizarTemporales(); //se toma la hora de inicio de sensibilizado de las transiciones temporales
     }
 
     private boolean esSensibilizadoInterno(int transicion){ //devuelve true si la transicion esta sensibilizada
@@ -41,11 +42,11 @@ public class VSensibilizadas {
         return E;
     }
 
-    public void sensibilizarTemporales(){
+    private void sensibilizarTemporales(){
         for (int i = 0; i < E.length ; i++) {
-            if (this.E[i] == 1 && transicionList.get(i).esTemporal()) {     //si el vector de sensibilizadas por tokens tiene 1 y la transicion es temporal se toma el inicio
-                transicionList.get(i).setInicioSensibilizado(Calendar.getInstance());
-            }
+            if (this.E[i] == 1 && transicionList.get(i).esTemporal() && Eaux[i]==0) {     //si el vector de sensibilizadas por tokens tiene 1 y la transicion es temporal se toma el inicio
+                transicionList.get(i).setInicioSensibilizado(Calendar.getInstance());       //si la transicion estaba desensibilizada(por token), luego se sensibiliza y es temporal
+            }                                                                               //tomo la hora de inicio en milisegundos
         }
     }
 }
