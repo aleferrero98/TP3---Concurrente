@@ -91,4 +91,8 @@ public class RedDePetri {
         }
         return sensibilizadas;
     }
+
+    public boolean esTemporizada(int transicion){
+        return transicionList.get(transicion).esTemporizada();
+    }
 }
