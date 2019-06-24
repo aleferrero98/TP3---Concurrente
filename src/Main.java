@@ -5,7 +5,6 @@ import java.util.Calendar;
 
 public class Main {
 
-    private static final int CANT_EXECUTORS = 1;
 
     public static void main(String[] args) throws InterruptedException {
         Calendar today = Calendar.getInstance();
@@ -61,12 +60,10 @@ public class Main {
         politica.addPrioridad(2 , 0);
         politica.addPrioridad(3 , 0);
         politica.addPrioridad(4 , 0);
-
-        politica.addPrioridad(5 , 0);  // T5 y T6 tienen mayor prioridad, para descongestionar el buffer
+        politica.addPrioridad(5 , 0);
         politica.addPrioridad(6 , 0);
-        politica.addPrioridad(7 , 0);   //OPCIONAL: T7 y T8 mayor prioridad para que los nucleos esten mayor tiempo trabajando
-        politica.addPrioridad(8 , 0);
-
+        politica.addPrioridad(7 , 0);
+        politica.addPrioridad(8 , 0); // T8 y T9 tienen mayor prioridad, para descongestionar el buffer
         politica.addPrioridad(9 , 0);
         politica.addPrioridad(10, 0);
 

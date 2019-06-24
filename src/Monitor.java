@@ -7,8 +7,10 @@ public class Monitor {
     private RedDePetri RdP;     //red que controla la logica del sistema
     private Politicas politica; //politicas que resuelven los conflictos de la red
     private Condicion condicionDeFinalizacion;
-    private int tareasN1;
-    private int tareasN2;
+    private int finalN2;
+    private int finalN1;
+    private int finalCreador;
+    private int finalCPU;
 
 
     public Monitor(RedDePetri red, Politicas politicas,Condicion condicion){
@@ -17,8 +19,10 @@ public class Monitor {
         this.politica = politicas;
         GenerarVarCond();
         this.condicionDeFinalizacion = condicion;
-        this.tareasN1 = 0;
-        this.tareasN2 = 0;
+        this.finalN1 = 0;
+        this.finalN2 = 0;
+        this.finalCPU = 0;
+        this.finalCreador = 0;
     }
 
     public void disparar(int transicion) throws IllegalDisparoException {
@@ -33,7 +37,7 @@ public class Monitor {
             }
             if(RdP.esTemporizada(transicion)) dispararTemporizada(transicion);
             else RdP.disparar(transicion); //dispara la transicion actualizando asi el estado
-            actualizarTareasFinalizadas(transicion);
+            actualizarCondiciones(transicion);
             desbloquearUno();          //desbloqueo otro hilo
             mutex.release();        //devuelve mutex
         }
@@ -56,7 +60,7 @@ public class Monitor {
 
             else RdP.disparar(transicion); //dispara la transicion actualizando asi el estado
 
-            actualizarTareasFinalizadas(transicion);
+            actualizarCondiciones(transicion);
             desbloquearUno();          //desbloqueo otro hilo
             mutex.release();        //devuelve mutex
         }
@@ -111,10 +115,23 @@ public class Monitor {
 
 
 
-    private void actualizarTareasFinalizadas(int transicion) {//lleva la cuenta de las tareas que se hacen en cada nucleo(service_rateN1 y N2)
-        if(transicion == 3) this.tareasN1++;
-        if(transicion == 4) this.tareasN2++;
+    private void actualizarCondiciones(int transicion) {//lleva la cuenta de las tareas que se hacen en cada nucleo(service_rateN1 y N2)
+        /*if(transicion == 0) this.tareasN1++;
+        //if(transicion == 4) this.tareasN2++;
         System.out.println("N1: "+tareasN1+"      N2: "+tareasN2);
-        if(tareasN1+tareasN2 >= 100) this.condicionDeFinalizacion.setCondicion(true); //si se superan las 1000 tareas, se setea la condicion para que finalice el programa
+        if(tareasN1>= 100) this.condicionDeFinalizacion.setCondicion(true); //si se superan las 1000 tareas, se setea la condicion para que finalice el programa
+         */
+        if(transicion == 0) finalCreador++;
+        else if(transicion == 3) finalN1++;
+        else if(transicion == 4) finalN2++;
+        else if(transicion == 5) finalCPU++;
+        if(finalCreador >=10) Obj_Creador.finalizar();
+        if(finalN1+finalN2 >=10) {
+            Obj_Nucleo1.finalizar();
+            Obj_Nucleo2.finalizar();
+        }
+        if(finalCPU >=10) Obj_CPU.finalizar();
+
+        System.out.println(""+finalCreador+"  "+finalCPU+"  "+finalN1+"   "+finalN2);
     }//CAMBIAR 100 POR 1000 TAREAS EN TOTAL
 }
