@@ -8,7 +8,36 @@ public class VSensibilizadas {
     private int[][] matrizDeIncidencia;
     private List<Transicion> transicionList;
     private int[] Eaux;
+    private int[][] Imas = {     //T0  T1  T2  T3  T4  T5  T6  T7  T8  T9  T10
+                                    {0,	0,	0,	0,	0,	0,	0,	0,	1,	0,	0},
+                                    {0,	0,	0,	0,	0,	0,	0,	0,	0,	1,	0},     //matriz de incidencia de entrada
+                                    {0,	0,	0,	0,	0,	0,	1,	0,	0,	0,	0},
+                                    {0,	0,	0,	0,	0,	0,	0,	1,	0,	0,	0},
+                                    {0,	0,	1,	0,	0,	1,	0,	0,	1,	1,	0},
+                                    {0,	0,	0,	1,	0,	0,	0,	0,	0,	0,	0},
+                                    {0,	0,	0,	0,	1,	0,	0,	0,	0,	0,	0},
+                                    {0,	0,	0,	0,	0,	0,	1,	1,	0,	0,	0},
+                                    {1,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0},
+                                    {0,	0,	0,	0,	0,	0,	1,	1,	0,	0,	1},
+                                    {0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	1},
+                                    {0,	1,	0,	0,	0,	0,	0,	0,	0,	0,	0}
+    };
 
+    private int[][] Imenos = {     //T0  T1  T2  T3  T4  T5  T6  T7  T8  T9  T10
+                                    {0,	0,	0,	1,	0,	0,	0,	0,	0,	0,	0},         //matriz de incidencia de salida
+                                    {0,	0,	0,	0,	1,	0,	0,	0,	0,	0,	0},
+                                    {0,	0,	0,	0,	0,	0,	0,	0,	1,	0,	0},
+                                    {0,	0,	0,	0,	0,	0,	0,	0,	0,	1,	0},
+                                    {0,	1,	0,	0,	0,	1,	0,	0,	1,	1,	0},
+                                    {0,	0,	0,	0,	0,	0,	0,	0,	1,	0,	0},
+                                    {0,	0,	0,	0,	0,	0,	0,	0,	0,	1,	0},
+                                    {1,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0},
+                                    {0,	0,	0,	0,	0,	0,	1,	1,	0,	0,	0},
+                                    {0,	0,	1,	0,	0,	1,	0,	0,	0,	0,	1},
+                                    {0,	0,	1,	0,	0,	0,	0,	0,	0,	0,	0},
+                                    {0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	1}
+
+    };
     public VSensibilizadas(int[][] matrizDeIncidencia, int[] marcaInicial, List<Transicion> transicionList){
         this.matrizDeIncidencia=matrizDeIncidencia;
         this.marcaActual=marcaInicial;
@@ -30,13 +59,23 @@ public class VSensibilizadas {
     }
 
     private boolean esSensibilizadoInterno(int transicion){ //devuelve true si la transicion esta sensibilizada
+        for(int i=0; i<Imenos.length; i++){
+            if(Imenos[i][transicion]==1 && marcaActual[i]<1) { //se fija una transicion y se busca en la matriz de incidencia de salida a lo largo de toda una columna
+                return false;                               //y se van variando las plazas(filas). Si se encuentra un uno es porque esa plaza tiene arco  hacia la transicion
+            }                                        //entonces se busca esa plaza y se le pregunta su marca: si es menor que 1, la transicion no esta sensibilizada
+        }
+        return true;
+
+    }
+
+ /*   private boolean esSensibilizadoInterno(int transicion){ //devuelve true si la transicion esta sensibilizada
         for(int i = 0; i < marcaActual.length; i++){
             if((marcaActual[i] + matrizDeIncidencia[i][transicion])  < 0){
                 return false;
             }
         }
         return true;
-    }
+    }*/
     private void crearE(){
         this.E = new int[matrizDeIncidencia[0].length];
         this.Eaux = new int[matrizDeIncidencia[0].length];
