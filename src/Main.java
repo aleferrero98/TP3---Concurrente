@@ -73,15 +73,20 @@ public class Main {
         Condicion condicionDeFinalizacion = new Condicion(false);
         Monitor monitor = new Monitor(rdp, politica,condicionDeFinalizacion);
 
-        Executor[] executors = new Executor[CANT_EXECUTORS];
-        for(int i =0; i<CANT_EXECUTORS; i++){
-            executors[i] = new Executor(monitor);
-            executors[i].start();
-        }
+        Obj_CPU cpu = new Obj_CPU(monitor);
+        Obj_Creador creador = new Obj_Creador(monitor);
+        Obj_Nucleo1 nucleo1 = new Obj_Nucleo1(monitor);
+        Obj_Nucleo2 nucleo2 = new Obj_Nucleo2(monitor);
 
-        for (int i = 0; i < CANT_EXECUTORS; i++) {
-            executors[i].join();
-        }
+        cpu.start();
+        creador.start();
+        nucleo1.start();
+        nucleo2.start();
+
+        cpu.join();
+        creador.join();
+        nucleo1.join();
+        nucleo2.join();
 
         Calendar today2 = Calendar.getInstance();
         System.out.print("Hora de fin: ");   //horas:minutos:segundos:milisegundos de fin del programa
