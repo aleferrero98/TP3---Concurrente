@@ -10,14 +10,15 @@ public class VSensibilizadas {
     private int[] Eaux;
 
     public VSensibilizadas(int[] marcaInicial, List<Transicion> transicionList, int[][] Imenos){
-        this.marcaActual=marcaInicial;
+
         this.Imenos = Imenos;
         this.transicionList = transicionList;
         crearE();
 
     }
 
-    public void actualizar() {       //actualiza el vector de las transiciones que estan sensibilizadas por token y LA LISTA DE TRANSICIONES TAMBIEN
+    public void actualizar(int[] marcaActual) {       //actualiza el vector de las transiciones que estan sensibilizadas por token y LA LISTA DE TRANSICIONES TAMBIEN
+       this.marcaActual = marcaActual;
         for (int i = 0; i < E.length ; i++) {
                 Eaux[i] = E[i];
             this.E[i] = (esSensibilizadoInterno(i) ? 1 : 0); //actualiza vector
@@ -25,7 +26,7 @@ public class VSensibilizadas {
 
         }
         sensibilizarTemporales(); //se toma la hora de inicio de sensibilizado de las transiciones temporales
-
+        imprimir(marcaActual,"marca actual");
         imprimir();
     }
 
@@ -42,7 +43,7 @@ public class VSensibilizadas {
     private void crearE(){
         this.E = new int[Imenos[0].length];
         this.Eaux = new int[Imenos[0].length];
-        actualizar();  //COMENTAR ACA PORQUE SE ACTUALIZA DOS VECES
+
     }
     public int[] getE() {
         return E;
@@ -60,6 +61,14 @@ public class VSensibilizadas {
         System.out.print("E: ");
         for(int i=0; i< getE().length;i++){
             System.out.print(E[i]+" ");
+        }
+        System.out.println();
+        System.out.println("---------------------");
+    }
+    public void imprimir(int[] a, String name){
+        System.out.print(name+": ");
+        for(int i=0; i< a.length;i++){
+            System.out.print(a[i]+" ");
         }
         System.out.println();
         System.out.println("---------------------");

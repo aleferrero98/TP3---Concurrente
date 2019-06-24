@@ -15,9 +15,9 @@ public class VSensibilizadasExt {
 
     }
 
-    public void actualizar() {
-        E.actualizar();
-        B.actualizar();
+    public void actualizar(int[] marcaActual) {
+        E.actualizar(marcaActual);
+        B.actualizar(marcaActual);
         Z.actualizar();
         actualizarDentro();
         imprimir();

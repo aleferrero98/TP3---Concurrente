@@ -20,7 +20,7 @@ public class RedDePetri {
     }
 
     private void crearExtendida() { //crea  Q, Z, E, B y el Ex, todos los vectores para ver si esta sensibilizada
-        VectorQ Q = new VectorQ(marcaActual);
+        VectorQ Q = new VectorQ(marcaActual.length);
         this.transicionList = new ArrayList<Transicion>();
         for(int i = 0; i < Imenos[0].length; i++){   //se crean todas las transiciones(comunes o con tiempo)
             /*switch(i) {
@@ -42,12 +42,12 @@ public class RedDePetri {
         }
         VSensibilizadas E = new VSensibilizadas(this.marcaActual, this.transicionList, this.Imenos);
         VSensibilizadasTiempo Z = new VSensibilizadasTiempo(transicionList);
-        VSensibilizadasArcInhib B = new VSensibilizadasArcInhib(Q,marcaActual);
+        VSensibilizadasArcInhib B = new VSensibilizadasArcInhib(Q);
         Ex = new VSensibilizadasExt(E,B,Z);
     }
 
     private void actualizarVectoresSensibilizadas() {       //actualiza el vector Ex y todos los vectores que lo componen (E, B y Z)
-        Ex.actualizar();
+        Ex.actualizar(marcaActual);
     }
 
 

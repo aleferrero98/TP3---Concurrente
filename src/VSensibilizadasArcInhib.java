@@ -16,16 +16,16 @@ public class VSensibilizadasArcInhib {
     private VectorQ Q;
     private int[] B;
     private OperadorConMatrices op;
-    private int[] marcaActual;
 
-    public VSensibilizadasArcInhib(VectorQ Q,int[] marcaActual){
+
+    public VSensibilizadasArcInhib(VectorQ Q){
         this.Q=Q;
         this.B = new int[matrizInhibicionH[0].length];
         this.op = new OperadorConMatrices();
-        this.marcaActual=marcaActual;
+
     }
-    public void actualizar(){ //Actualiza B a partir de Q y la matriz de inhibicion
-        Q.actualizar();
+    public void actualizar(int[] marcaActual){ //Actualiza B a partir de Q y la matriz de inhibicion
+        Q.actualizar(marcaActual);
         actualizarDentro();
         imprimir();
     }
