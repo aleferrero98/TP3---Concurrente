@@ -21,18 +21,66 @@ public class Monitor {
         this.tareasN2 = 0;
     }
 
-    public void disparar(int transicion)throws IllegalDisparoException{ //SACAR DESPUES
-        try {
-            mutex.acquire();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+    public void disparar(int transicion) throws IllegalDisparoException {
+        { //dispara una transicion
+            try {
+                mutex.acquire();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            while(!(RdP.esSensibilizada(transicion))){  //si la transicion no es sensibilizada (extendida) se bloquea
+                VariablesDeCondicion[transicion].Delay();       //bloqueo
+            }
+            if(RdP.esTemporizada(transicion)) dispararTemporizada(transicion);
+            else RdP.disparar(transicion); //dispara la transicion actualizando asi el estado
+            actualizarTareasFinalizadas(transicion);
+            desbloquearUno();          //desbloqueo otro hilo
+            mutex.release();        //devuelve mutex
         }
-        while(!(RdP.esSensibilizada(transicion))){
-            VariablesDeCondicion[transicion].Delay();       //bloqueo
+    }
+
+
+    public void disparar(ArrayList<Integer> transiciones) throws IllegalDisparoException {
+        { //elige y dispara una transicion
+            try {
+                mutex.acquire();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            int transicion = this.politica.decidir(transiciones); //la politica elige una de las transiciones que le piden que dispare
+                                                                  //es decir realiza la resolucion del conflicto
+            while(!(RdP.esSensibilizada(transicion))){  //si la transicion no es sensibilizada (extendida) se bloquea
+                VariablesDeCondicion[transicion].Delay();       //bloqueo
+            }
+            if(RdP.esTemporizada(transicion)) dispararTemporizada(transicion);
+
+            else RdP.disparar(transicion); //dispara la transicion actualizando asi el estado
+
+            actualizarTareasFinalizadas(transicion);
+            desbloquearUno();          //desbloqueo otro hilo
+            mutex.release();        //devuelve mutex
         }
-        this.RdP.disparar(transicion); //dispara la transicion actualizando asi el estado
-        desbloquearUno();          //desbloqueo otro hilo
-        mutex.release();        //devuelve mutex
+    }
+
+    private void dispararTemporizada(int transicion) throws IllegalDisparoException {
+        Transicion trans = RdP.getTransiciones().get(transicion);
+        if(trans instanceof TransicionConTiempo){
+            TransicionConTiempo t = (TransicionConTiempo) trans; //casteo para usar metodos de transicion con tiempo
+            if(t.estaAdentroDeVentana()){
+                RdP.disparar(transicion);
+            }
+            else if(t.estaAntes()){
+                mutex.release();
+                try {
+                    Thread.sleep(t.cuantoDormir()); //duerme lo necesario para que al despertarse pueda disparar la temporizada
+                    mutex.acquire();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                dispararTemporizada(transicion); //llamada recursiba, en la mas interna deberia de entrar en el primer if y disparar la transicion
+            }
+            else throw new IllegalDisparoException("llego despues no se va a disparar nunca");
+        }
     }
 
 
@@ -61,24 +109,7 @@ public class Monitor {
         }
     }
 
-    public void dispararAlguno() throws IllegalDisparoException {
-        { //dispara una transicion
-            try {
-                mutex.acquire();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            ArrayList<Integer> transiciones = RdP.getSensibilizadas();
-            int transicion = this.politica.decidir(transiciones);
-            while(!(RdP.esSensibilizada(transicion))){  //si la transicion no es sensibilizada (extendida) se bloquea
-                VariablesDeCondicion[transicion].Delay();       //bloqueo
-            }
-            this.RdP.disparar(transicion); //dispara la transicion actualizando asi el estado
-            actualizarTareasFinalizadas(transicion);
-            desbloquearUno();          //desbloqueo otro hilo
-            mutex.release();        //devuelve mutex
-        }
-    }
+
 
     private void actualizarTareasFinalizadas(int transicion) {//lleva la cuenta de las tareas que se hacen en cada nucleo(service_rateN1 y N2)
         System.out.println("N1: "+tareasN1+"      N2: "+tareasN2);
