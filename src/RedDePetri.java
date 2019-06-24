@@ -55,7 +55,7 @@ public class RedDePetri {
         if(esSensibilizada(transicion)){      //verifica si la transicion esta sensibilizada a partir de Ex
             int[] disparoSensibilizado = new int[Imenos[0].length];
             disparoSensibilizado = op.and(generarVectorDisparo(transicion),this.Ex.getEx());  //sigma and Ex
-            marcaActual = op.sumar(marcaActual, op.multiplicar(Imenos, disparoSensibilizado)); //Ecuacion de estado generalizada: Mj+1 = Mj + Imenos*(sigma and Ex)
+            marcaActual = op.sumar(marcaActual, op.multiplicarXEscalar(op.multiplicar(Imenos, disparoSensibilizado),-1)); //Ecuacion de estado generalizada: Mj+1 = Mj + Imenos*(sigma and Ex)
             marcaActual = op.sumar(marcaActual, op.multiplicar(Imas, disparoSensibilizado)); //Ecuacion de estado generalizada: Mj+2 = Mj+1 + Imas*(sigma and Ex)
             actualizarVectoresSensibilizadas();
         }else{

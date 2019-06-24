@@ -107,6 +107,16 @@ public class OperadorConMatrices {
         return resultado;
     }
 
+    public int[] multiplicarXEscalar(int[] a, int e){
+        if(a == null)throw new NullPointerException("vector nulo!");
+        int[] resultado = new int[a.length];
+        for(int i=0; i < a.length; i++){
+            resultado[i] = a[i] * e;
+        }
+        return resultado;
+    }
+
+
     public int[] complementar(int[] a){
         if(a == null)throw new NullPointerException("vector nulo!");
         int[] complemento = new int[a.length];

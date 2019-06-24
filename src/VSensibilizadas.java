@@ -42,7 +42,7 @@ public class VSensibilizadas {
     private void crearE(){
         this.E = new int[Imenos[0].length];
         this.Eaux = new int[Imenos[0].length];
-        actualizar();
+        actualizar();  //COMENTAR ACA PORQUE SE ACTUALIZA DOS VECES
     }
     public int[] getE() {
         return E;
