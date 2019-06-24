@@ -46,8 +46,8 @@ public class Main {
         politica.addPrioridad(3 , 0);
         politica.addPrioridad(4 , 0);
 
-        politica.addPrioridad(5 , 1);  // T5 y T6 tienen mayor prioridad, para descongestionar el buffer
-        politica.addPrioridad(6 , 1);
+        politica.addPrioridad(5 , 0);  // T5 y T6 tienen mayor prioridad, para descongestionar el buffer
+        politica.addPrioridad(6 , 0);
         politica.addPrioridad(7 , 0);   //OPCIONAL: T7 y T8 mayor prioridad para que los nucleos esten mayor tiempo trabajando
         politica.addPrioridad(8 , 0);
 
@@ -64,7 +64,7 @@ public class Main {
         }
 
         for (int i = 0; i < CANT_EXECUTORS; i++) {
-      //      executors[i].join();
+            executors[i].join();
         }
 
         Calendar today2 = Calendar.getInstance();

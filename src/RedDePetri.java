@@ -5,7 +5,6 @@ public class RedDePetri {
 
     private int[] marcaActual;
     private int[][] matrizDeIncidencia;
-   // private boolean[] transiciones;     EN LUGAR DE ESTO SE VE Ex
     private VSensibilizadasExt Ex;
     private List<Transicion> transicionList;
 
@@ -24,13 +23,13 @@ public class RedDePetri {
         for(int i = 0; i < matrizDeIncidencia[0].length; i++){   //se crean todas las transiciones(comunes o con tiempo)
             switch(i) {
                 case 0:     //transicion temporal Arrival_rate
-                    transicionList.add(new TransicionConTiempo(i,5,1000000000));  //limite superior muy grande
+                    transicionList.add(new TransicionConTiempo(i,500,1000000000));  //limite superior muy grande
                     break;
-                case 7:     //transicion temporal Service_rateN1
-                    transicionList.add(new TransicionConTiempo(i,7,1000000000));
+                case 3:     //transicion temporal Service_rateN1
+                    transicionList.add(new TransicionConTiempo(i,700,1000000000));
                     break;
-                case 8:     //transicion temporal Service_rateN2
-                    transicionList.add(new TransicionConTiempo(i,9,1000000000));
+                case 4:     //transicion temporal Service_rateN2
+                    transicionList.add(new TransicionConTiempo(i,900,1000000000));
                     break;
                 default:
                     transicionList.add(new TransicionComun(i));
