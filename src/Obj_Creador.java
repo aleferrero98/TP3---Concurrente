@@ -9,6 +9,8 @@ public class Obj_Creador extends Thread {
     public Obj_Creador(Monitor monitor){
         this.monitor = monitor;
         T5T6 = new ArrayList<>();
+        T5T6.add(6);
+        T5T6.add(7);
         finalizar=false;
     }
 
