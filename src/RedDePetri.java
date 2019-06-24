@@ -4,15 +4,17 @@ import java.util.List;
 public class RedDePetri {
 
     private int[] marcaActual;
-    private int[][] matrizDeIncidencia;
+    private int[][] Imenos;
+    private int[][] Imas;
     private VSensibilizadasExt Ex;
     private List<Transicion> transicionList;
 
 
-    public RedDePetri(int[] marcaInicial, int[][] matrizDeIncidencia) {
+    public RedDePetri(int[] marcaInicial, int[][] Imenos, int[][] Imas) {
 
         this.marcaActual = marcaInicial;
-        this.matrizDeIncidencia = matrizDeIncidencia;
+        this.Imenos = Imenos;
+        this.Imas = Imas;
         crearExtendida();
         actualizarVectoresSensibilizadas();
     }
@@ -20,7 +22,7 @@ public class RedDePetri {
     private void crearExtendida() { //crea  Q, Z, E, B y el Ex, todos los vectores para ver si esta sensibilizada
         VectorQ Q = new VectorQ(marcaActual);
         this.transicionList = new ArrayList<Transicion>();
-        for(int i = 0; i < matrizDeIncidencia[0].length; i++){   //se crean todas las transiciones(comunes o con tiempo)
+        for(int i = 0; i < Imenos[0].length; i++){   //se crean todas las transiciones(comunes o con tiempo)
             switch(i) {
                 case 0:     //transicion temporal Arrival_rate
                     transicionList.add(new TransicionConTiempo(i,500,1000000000));  //limite superior muy grande
@@ -36,7 +38,7 @@ public class RedDePetri {
                     break;
             }
         }
-        VSensibilizadas E = new VSensibilizadas(this.matrizDeIncidencia, this.marcaActual, this.transicionList);
+        VSensibilizadas E = new VSensibilizadas(this.marcaActual, this.transicionList, this.Imenos);
         VSensibilizadasTiempo Z = new VSensibilizadasTiempo(transicionList);
         VSensibilizadasArcInhib B = new VSensibilizadasArcInhib(Q,marcaActual);
         Ex = new VSensibilizadasExt(E,B,Z);
@@ -49,10 +51,12 @@ public class RedDePetri {
 
     public void disparar(int transicion) throws IllegalDisparoException {  //dispara una transicion modificando la marcaActual con la ec. generalizada
         OperadorConMatrices op = new OperadorConMatrices();
-        int[] contenedor;
+
         if(esSensibilizada(transicion)){      //verifica si la transicion esta sensibilizada a partir de Ex
-            contenedor = op.multiplicar(matrizDeIncidencia, op.and(generarVectorDisparo(transicion),this.Ex.getEx()));
-            marcaActual = op.sumar(marcaActual, contenedor); //Ecuacion de estado generalizada: Mj+1 = Mj + I*(sigma and Ex)
+            int[] disparoSensibilizado = new int[Imenos[0].length];
+            disparoSensibilizado = op.and(generarVectorDisparo(transicion),this.Ex.getEx());  //sigma and Ex
+            marcaActual = op.sumar(marcaActual, op.multiplicar(Imenos, disparoSensibilizado)); //Ecuacion de estado generalizada: Mj+1 = Mj + Imenos*(sigma and Ex)
+            marcaActual = op.sumar(marcaActual, op.multiplicar(Imas, disparoSensibilizado)); //Ecuacion de estado generalizada: Mj+2 = Mj+1 + Imas*(sigma and Ex)
             actualizarVectoresSensibilizadas();
         }else{
             throw new IllegalDisparoException();
@@ -60,8 +64,8 @@ public class RedDePetri {
     }
 
     private int[] generarVectorDisparo(int transicion){  //A partir del nro de transicion (ID) se genera un vector de disparo con todos ceros menos la transicion a disparar
-        int[] vectorDisparo = new int[matrizDeIncidencia[0].length];
-        for(int i=0; i<matrizDeIncidencia[0].length; i++){
+        int[] vectorDisparo = new int[Imenos[0].length];
+        for(int i=0; i<Imenos[0].length; i++){
             vectorDisparo[i]=0;         //reseteo el vector con todos ceros
         }
         vectorDisparo[transicion]=1;        //tiene 1 solo en la transicion que se desea disparar

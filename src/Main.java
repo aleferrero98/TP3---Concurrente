@@ -17,22 +17,38 @@ public class Main {
 
         int[] marcaInicial = {0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1};
 
-        int[][] matrizDeIncidencia = {     //T0  T1  T2  T3  T4  T5  T6  T7  T8  T9  T10
-                                            { 0, 0, 0,-1, 0, 0, 0, 0, 1, 0, 0},
-                                            { 0, 0, 0, 0,-1, 0, 0, 0, 0, 1, 0},
-                                            { 0, 0, 0, 0, 0, 0, 1, 0,-1, 0, 0},
-                                            { 0, 0, 0, 0, 0, 0, 0, 1, 0,-1, 0},
-                                            { 0,-1, 1, 0, 0, 0, 0, 0, 0, 0, 0},
-                                            { 0, 0, 0, 1, 0, 0, 0, 0,-1, 0, 0},
-                                            { 0, 0, 0, 0, 1, 0, 0, 0, 0,-1, 0},
-                                            {-1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0},
-                                            { 1, 0, 0, 0, 0, 0,-1,-1, 0, 0, 0},
-                                            { 0, 0,-1, 0, 0,-1, 1, 1, 0, 0, 0},
-                                            { 0, 0,-1, 0, 0, 0, 0, 0, 0, 0, 1},
-                                            { 0, 1, 0, 0, 0, 0, 0, 0, 0, 0,-1}
+        int[][] Imas = {     //T0  T1  T2  T3  T4  T5  T6  T7  T8  T9  T10
+                                {0,	0,	0,	0,	0,	0,	0,	0,	1,	0,	0},
+                                {0,	0,	0,	0,	0,	0,	0,	0,	0,	1,	0},     //matriz de incidencia de entrada
+                                {0,	0,	0,	0,	0,	0,	1,	0,	0,	0,	0},
+                                {0,	0,	0,	0,	0,	0,	0,	1,	0,	0,	0},
+                                {0,	0,	1,	0,	0,	1,	0,	0,	1,	1,	0},
+                                {0,	0,	0,	1,	0,	0,	0,	0,	0,	0,	0},
+                                {0,	0,	0,	0,	1,	0,	0,	0,	0,	0,	0},
+                                {0,	0,	0,	0,	0,	0,	1,	1,	0,	0,	0},
+                                {1,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0},
+                                {0,	0,	0,	0,	0,	0,	1,	1,	0,	0,	1},
+                                {0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	1},
+                                {0,	1,	0,	0,	0,	0,	0,	0,	0,	0,	0}
         };
 
-        RedDePetri rdp = new RedDePetri(marcaInicial, matrizDeIncidencia);
+        int[][] Imenos = {     //T0  T1  T2  T3  T4  T5  T6  T7  T8  T9  T10
+                                {0,	0,	0,	1,	0,	0,	0,	0,	0,	0,	0},         //matriz de incidencia de salida
+                                {0,	0,	0,	0,	1,	0,	0,	0,	0,	0,	0},
+                                {0,	0,	0,	0,	0,	0,	0,	0,	1,	0,	0},
+                                {0,	0,	0,	0,	0,	0,	0,	0,	0,	1,	0},
+                                {0,	1,	0,	0,	0,	1,	0,	0,	1,	1,	0},
+                                {0,	0,	0,	0,	0,	0,	0,	0,	1,	0,	0},
+                                {0,	0,	0,	0,	0,	0,	0,	0,	0,	1,	0},
+                                {1,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0},
+                                {0,	0,	0,	0,	0,	0,	1,	1,	0,	0,	0},
+                                {0,	0,	1,	0,	0,	1,	0,	0,	0,	0,	1},
+                                {0,	0,	1,	0,	0,	0,	0,	0,	0,	0,	0},
+                                {0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	1}
+
+        };
+
+        RedDePetri rdp = new RedDePetri(marcaInicial, Imenos, Imas);
         Politicas politica = new Politicas(rdp);
 
         //SETEAR PRIORIDADES A CADA TRANSICION
@@ -55,7 +71,7 @@ public class Main {
         politica.addPrioridad(10, 0);
 
         Condicion condicionDeFinalizacion = new Condicion(false);
-        Monitor monitor = new Monitor(new RedDePetri(marcaInicial, matrizDeIncidencia), politica,condicionDeFinalizacion);
+        Monitor monitor = new Monitor(rdp, politica,condicionDeFinalizacion);
 
         Executor[] executors = new Executor[CANT_EXECUTORS];
         for(int i =0; i<CANT_EXECUTORS; i++){
