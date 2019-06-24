@@ -27,6 +27,7 @@ public class VSensibilizadasArcInhib {
     public void actualizar(){ //Actualiza B a partir de Q y la matriz de inhibicion
         Q.actualizar();
         actualizarDentro();
+        imprimir();
     }
     private void actualizarDentro(){
 
@@ -35,6 +36,15 @@ public class VSensibilizadasArcInhib {
 
     public int[] getB() {
         return B;
+    }
+
+    public void imprimir(){
+        System.out.print("B: ");
+        for(int i=0; i< getB().length;i++){
+            System.out.print(B[i]+" ");
+        }
+        System.out.println();
+        System.out.println("---------------------");
     }
 
 }

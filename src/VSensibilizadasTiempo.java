@@ -31,10 +31,19 @@ public class VSensibilizadasTiempo {
                 Z[recorrer.getID()]=0;
             }
         }
+        imprimir();
     }
 
     public int[] getZ() {
         return Z;
+    }
+    public void imprimir(){
+        System.out.print("Z: ");
+        for(int i=0; i< getZ().length;i++){
+            System.out.print(Z[i]+" ");
+        }
+        System.out.println();
+        System.out.println("---------------------");
     }
 
 }

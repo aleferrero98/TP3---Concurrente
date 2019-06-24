@@ -5,7 +5,7 @@ import java.util.Calendar;
 
 public class Main {
 
-    private static final int CANT_EXECUTORS = 4;
+    private static final int CANT_EXECUTORS = 1;
 
     public static void main(String[] args) throws InterruptedException {
         Calendar today = Calendar.getInstance();
@@ -18,18 +18,18 @@ public class Main {
         int[] marcaInicial = {0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1};
 
         int[][] matrizDeIncidencia = {     //T0  T1  T2  T3  T4  T5  T6  T7  T8  T9  T10
-                                            { 0,  0,  0,  0,  0,  1,  0, -1,  0,  0,  0},
-                                            { 0,  0,  0,  0,  0,  0,  1,  0, -1,  0,  0},
-                                            { 0,  0,  0,  1,  0, -1,  0,  0,  0,  0,  0},
-                                            { 0,  0,  0,  0,  1,  0, -1,  0,  0,  0,  0},
-                                            { 0, -1,  1,  0,  0,  0,  0,  0,  0,  0,  0},
-                                            { 0,  0,  0,  0,  0, -1,  0,  1,  0,  0,  0},
-                                            { 0,  0,  0,  0,  0,  0, -1,  0,  1,  0,  0},
-                                            {-1,  0,  0,  1,  1,  0,  0,  0,  0,  0,  0},
-                                            { 1,  0,  0, -1, -1,  0,  0,  0,  0,  0,  0},
-                                            { 0,  0, -1,  1,  1,  0,  0,  0,  0,  0, -1},
-                                            { 0,  0, -1,  0,  0,  0,  0,  0,  0,  1,  0},
-                                            { 0,  1,  0,  0,  0,  0,  0,  0,  0, -1,  0}
+                                            { 0, 0, 0,-1, 0, 0, 0, 0, 1, 0, 0},
+                                            { 0, 0, 0, 0,-1, 0, 0, 0, 0, 1, 0},
+                                            { 0, 0, 0, 0, 0, 0, 1, 0,-1, 0, 0},
+                                            { 0, 0, 0, 0, 0, 0, 0, 1, 0,-1, 0},
+                                            { 0,-1, 1, 0, 0, 0, 0, 0, 0, 0, 0},
+                                            { 0, 0, 0, 1, 0, 0, 0, 0,-1, 0, 0},
+                                            { 0, 0, 0, 0, 1, 0, 0, 0, 0,-1, 0},
+                                            {-1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0},
+                                            { 1, 0, 0, 0, 0, 0,-1,-1, 0, 0, 0},
+                                            { 0, 0,-1, 0, 0,-1, 1, 1, 0, 0, 0},
+                                            { 0, 0,-1, 0, 0, 0, 0, 0, 0, 0, 1},
+                                            { 0, 1, 0, 0, 0, 0, 0, 0, 0, 0,-1}
         };
 
         RedDePetri rdp = new RedDePetri(marcaInicial, matrizDeIncidencia);
@@ -64,7 +64,7 @@ public class Main {
         }
 
         for (int i = 0; i < CANT_EXECUTORS; i++) {
-            executors[i].join();
+      //      executors[i].join();
         }
 
         Calendar today2 = Calendar.getInstance();

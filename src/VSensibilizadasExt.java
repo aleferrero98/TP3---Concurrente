@@ -20,6 +20,7 @@ public class VSensibilizadasExt {
         B.actualizar();
         Z.actualizar();
         actualizarDentro();
+        imprimir();
     }
         //Ex = E and complemento(B) and Z
     private void actualizarDentro() {
@@ -28,5 +29,14 @@ public class VSensibilizadasExt {
 
     public int[] getEx() {
         return Ex;
+    }
+
+    public void imprimir(){
+        System.out.print("Ex: ");
+        for(int i=0; i< getEx().length;i++){
+            System.out.print(Ex[i]+" ");
+        }
+        System.out.println();
+        System.out.println("---------------------");
     }
 }

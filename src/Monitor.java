@@ -84,6 +84,6 @@ public class Monitor {
         System.out.println("N1: "+tareasN1+"      N2: "+tareasN2);
         if(transicion == 3) this.tareasN1++;
         if(transicion == 4) this.tareasN2++;
-        if(tareasN1+tareasN2 >= 1000) this.condicionDeFinalizacion.setCondicion(true); //si se superan las 1000 tareas, se setea la condicion para que finalice el programa
-    }
+        if(tareasN1+tareasN2 >= 100) this.condicionDeFinalizacion.setCondicion(true); //si se superan las 1000 tareas, se setea la condicion para que finalice el programa
+    }//CAMBIAR 100 POR 1000 TAREAS EN TOTAL
 }

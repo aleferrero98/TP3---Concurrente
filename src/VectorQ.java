@@ -12,9 +12,19 @@ public class VectorQ {
         for(int i=0;i<marcaActual.length;i++){
             Q[i]=(marcaActual[i]==0)? 1 : 0;
         }
+        imprimir();
     }
 
     public int[] getQ() {
         return Q;
+    }
+
+    public void imprimir(){
+        System.out.print("Q: ");
+        for(int i=0; i< getQ().length;i++){
+            System.out.print(Q[i]+" ");
+        }
+        System.out.println();
+        System.out.println("---------------------");
     }
 }
