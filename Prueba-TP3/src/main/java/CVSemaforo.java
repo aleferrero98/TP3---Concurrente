@@ -17,7 +17,7 @@ public class CVSemaforo {
         try {
             condicion.acquire();
         } catch (InterruptedException e) {
-            System.out.println("interrumpen Delay1");
+            System.out.println("interrumpen Delay1 de " + Thread.currentThread().getName());
         }
         try {
             mutex.acquire();

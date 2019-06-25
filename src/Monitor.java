@@ -9,6 +9,9 @@ public class Monitor {
     private Condicion condicionDeFinalizacion;
     private int finalN2;
     private int finalN1;
+    private int finalCPU;
+    private int finalCPU2;
+    private int finalCreador;
 
 
     public Monitor(RedDePetri red, Politicas politicas,Condicion condicion){
@@ -19,6 +22,9 @@ public class Monitor {
         this.condicionDeFinalizacion = condicion;
         this.finalN1 = 0;
         this.finalN2 = 0;
+        this.finalCPU= 0;
+        this.finalCPU2=0;
+        this.finalCreador=0;
     }
 
     public void disparar(int transicion) throws IllegalDisparoException {
@@ -113,12 +119,12 @@ public class Monitor {
         }
     }
 
-    private void desbloquearTodos(){
+ /*   private void desbloquearTodos(){
         for(int i=0;i<VariablesDeCondicion.length;i++){
             mutex.release();
             VariablesDeCondicion[i].Resume();
         }
-    }
+    }*/
 
     private void actualizarCondiciones(int transicion) {//lleva la cuenta de las tareas que se hacen en cada nucleo(service_rateN1 y N2)
         /*if(transicion == 0) this.tareasN1++;
@@ -127,14 +133,25 @@ public class Monitor {
         if(tareasN1>= 100) this.condicionDeFinalizacion.setCondicion(true); //si se superan las 1000 tareas, se setea la condicion para que finalice el programa
          */
         //if(transicion == 0) finalCreador++;
-        if(transicion == 3) finalN1++;
-        else if(transicion == 12) finalN2++;
-        //else if(transicion == 5) finalCPU++;
+        if(transicion == 3) {finalN1++;}
+        else if(transicion == 12) {finalN2++;}
+        else if(transicion == 6) {finalCPU++;}
+        else if(transicion == 10) {finalCPU2++;}
+        else if(transicion == 0){finalCreador++;}
 
         if((finalN1+finalN2) >=10){
             System.out.println("Llega");
-            desbloquearTodos();
+            //desbloquearTodos();
             condicionDeFinalizacion.setCondicion(true);}
+        /*if(finalCPU >= 10){
+            Obj_CPU.finalizar();
+        }
+        if(finalCPU2>=10){
+            Obj_CPU2.finalizar();
+        }
+        if(finalCreador>=10){
+            Obj_Creador.finalizar();
+        }*/
 
         /*if(finalN1+finalN2 >=10) {
             Obj_Nucleo1.finalizar();

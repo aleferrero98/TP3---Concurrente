@@ -11,6 +11,7 @@ public class Obj_CPU2 extends Thread{
         T10T8 = new ArrayList<>();
         T10T8.add(10);
         T10T8.add(8);
+        this.setName("Obj_CPU2");
     }
 
     @Override

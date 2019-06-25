@@ -37,7 +37,7 @@ public class RedDePetri {
                     transicionList.add(new TransicionComun(i));
                     break;
             }*/
-            transicionList.add(new TransicionComun(i));
+            transicionList.add(new TransicionComun(i));   //SACAR ACA SI SE AGREGAN LAS TEMPORALES
         }
         VSensibilizadas E = new VSensibilizadas(this.marcaActual, this.transicionList, this.Imenos);
         VSensibilizadasTiempo Z = new VSensibilizadasTiempo(transicionList);
