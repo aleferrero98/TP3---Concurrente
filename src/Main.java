@@ -94,29 +94,31 @@ public class Main {
         nucleo1.start();
         nucleo2.start();
 
-
-
-        cpu.join();
-        cpu2.join();
-        creador.join();
-        nucleo1.join();
-        nucleo2.join();
         boolean condicion=true;
         while (condicion){
             if(condicionDeFinalizacion.getCondicion()){
-                /*cpu.interrupt();
-                cpu2.interrupt();
-                creador.interrupt();
-                nucleo1.interrupt();
-                nucleo2.interrupt();*/
-                cpu.stop();
+                cpu.suspend();
+                cpu2.suspend();
+                creador.suspend();
+                nucleo1.suspend();
+                nucleo2.suspend();
+                /*cpu.stop();
                 cpu2.stop();
                 creador.stop();
                 nucleo1.stop();
-                nucleo2.stop();
+                nucleo2.stop();*/
                 condicion=false;
             }
         }
+
+
+        /*cpu.join();
+        cpu2.join();
+        creador.join();
+        nucleo1.join();
+        nucleo2.join();*/
+
+
 
         Calendar today2 = Calendar.getInstance();
         System.out.print("Hora de fin: ");   //horas:minutos:segundos:milisegundos de fin del programa
@@ -134,6 +136,7 @@ public class Main {
 
 
         System.out.println("Fin del hilo Main");
+        System.out.println(Thread.currentThread());
 
     }
 }

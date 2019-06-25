@@ -14,6 +14,7 @@ public class Obj_CPU extends Thread {
         T1T6.add(1);
         T1T6.add(6);
         finalizar=false;
+        this.setName("Obj_CPU");
     }
     @Override
     public void run(){

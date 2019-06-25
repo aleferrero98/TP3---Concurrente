@@ -4,11 +4,11 @@ import java.util.HashMap;
 
 public class Main {
 
-    private static String path_matrices = "C:\\Users\\Pato\\Documents\\2019 1\\Programacion concurrente\\TP3\\TP3---Concurrente\\Txt_Rdp";
-    private static String path_Imas = path_matrices+"\\Matriz_I+.txt";
-    private static String path_Imenos = path_matrices+"\\Matriz_I-.txt";
-    private static String path_H = path_matrices+"\\Matriz_H.txt";
-    private static String path_marca = path_matrices+"\\Marca_Inicial.txt";
+    //private static String path_matrices = "/Users/jere/Desktop/TP3---Concurrente";
+    //private static String path_Imas = path_matrices+"/Matriz_I+.txt";
+    //private static String path_Imenos = path_matrices+"/Matriz_I-";
+    //private static String path_H = path_matrices+"/Matriz_H.txt";
+    //private static String path_marca = path_matrices+"/Marca_Inicial.txt";
 
     public static void main(String[] args) throws InterruptedException {
         Calendar today = Calendar.getInstance();
@@ -32,11 +32,11 @@ public class Main {
                             { 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,	0},
                             { 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1,	0},
                             { 0, 0,	0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0,	1},
-                            { 0, 0,	0, 0, 0, 0,	0,	0,	1,	0,	0,	0,	0,	0,	0},
-                            { 0, 0,	0, 0, 0, 0,	0,	0,	0,	0,	0,	1,	0,	0,	0},
-                            { 0, 0,	0, 0, 0,	0,	0,	0,	0,	0,	0,	0,	0,	1,	0},
-                            { 0, 0,	0, 0, 0,	0,	0,	0,	0,	0,	0,	0,	1,	0,	0},
-                            { 0, 0,	0, 0, 0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	1},
+                            { 0, 0,	0, 0, 0, 0,	0, 0, 1, 0,	0, 0, 0, 0,	0},
+                            { 0, 0,	0, 0, 0, 0,	0, 0, 0, 0,	0, 1, 0, 0,	0},
+                            { 0, 0,	0, 0, 0, 0,	0, 0, 0, 0,	0, 0, 0, 1,	0},
+                            { 0, 0,	0, 0, 0, 0,	0, 0, 0, 0,	0, 0, 1, 0,	0},
+                            { 0, 0,	0, 0, 0, 0,	0, 0, 0, 0,	0, 0, 0, 0,	1},
         };
 
         int[][] Imenos = {     //T0  T1  T2  T3  T4  T5  T6  T7  T8  T9  T10
@@ -79,11 +79,11 @@ public class Main {
 
         //------------------  Lectura de matrices desde archivos!
         OperadorConMatrices op = new OperadorConMatrices();
-        Archivo f = new Archivo();
-        Imas = f.leerMatriz(path_Imas);
-        Imenos = f.leerMatriz(path_Imenos);
-        matrizInhibicionH = f.leerMatriz(path_H);
-        marcaInicial = op.toVector(f.leerMatriz(path_marca));
+        //Archivo f = new Archivo();
+        //Imas = f.leerMatriz(path_Imas);
+        //Imenos = f.leerMatriz(path_Imenos);
+        //matrizInhibicionH = f.leerMatriz(path_H);
+        //marcaInicial = op.toVector(f.leerMatriz(path_marca));
         //------------------
         HashMap<Integer, TransicionConTiempo> transicionesConTiempo = new HashMap<>();
         TransicionConTiempo t1 = new TransicionConTiempo(0, 50);
@@ -132,15 +132,6 @@ public class Main {
         nucleo1.start();
         nucleo2.start();
 
-
-
-        /*cpu.join();
-        cpu2.join();
-        creador.join();
-        nucleo1.join();
-        nucleo2.join();
-
-         */
         while (condicionDeFinalizacion.getCondicion() ==false){
                 System.out.println("esperando");
                 Thread.sleep(1000);
@@ -150,17 +141,6 @@ public class Main {
                 creador.interrupt();
                 nucleo1.interrupt();
                 nucleo2.interrupt();
-
-                /*
-                cpu.stop();
-                cpu2.stop();
-                creador.stop();
-                nucleo1.stop();
-                nucleo2.stop();
-
-                 */
-
-
 
         Calendar today2 = Calendar.getInstance();
         System.out.print("Hora de fin: ");   //horas:minutos:segundos:milisegundos de fin del programa
@@ -178,6 +158,6 @@ public class Main {
 
 
         System.out.println("Fin del hilo Main");
-
+        System.exit(1);
     }
 }

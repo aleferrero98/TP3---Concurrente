@@ -11,6 +11,7 @@ public class Obj_Creador extends Thread {
         T4T14.add(4);
         T4T14.add(14);
         finalizar=false;
+        this.setName("Obj_Creador");
     }
 
     @Override

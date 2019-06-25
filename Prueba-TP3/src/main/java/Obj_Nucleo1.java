@@ -6,6 +6,7 @@ public class Obj_Nucleo1 extends Thread {
     public Obj_Nucleo1(Monitor monitor){
         this.monitor=monitor;
         finalizar=false;
+        this.setName("Obj_Nucleo1");
     }
     @Override
     public void run(){

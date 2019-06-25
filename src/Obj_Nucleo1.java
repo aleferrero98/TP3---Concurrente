@@ -18,6 +18,7 @@ public class Obj_Nucleo1 extends Thread {
                 e.printStackTrace();
             }
         }
+        System.exit(1);
     }
     public static void finalizar(){
         finalizar=true;

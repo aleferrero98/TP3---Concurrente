@@ -15,6 +15,7 @@ public class RedDePetri {
     private int[] B;
     private int[] Q;
     private int[] temp;
+
     private OperadorConMatrices op;
     private HashMap<Integer, TransicionConTiempo> tConTiempo; //aca se lleva Z en realidad
 
@@ -38,7 +39,7 @@ public class RedDePetri {
         actualizarExt();
     }
 
-    private void actualizarExt() {
+    private void actualizarExt() { //Vector extendido, crea y actualiza. E and B and Z
         actualizarE();
         actualizarB();
         actualizarTemporizadas();
@@ -46,7 +47,7 @@ public class RedDePetri {
     }
 
 
-    private void crearE() {
+    private void crearE() { //Crea y actualiza el vector de sensibilizadas
         this.E = new int[Imenos[0].length];
         this.Eaux = new int[E.length];
         for (int i = 0; i < Eaux.length ; i++) {
@@ -58,11 +59,12 @@ public class RedDePetri {
     private void actualizarE() {
         for (int i = 0; i < E.length ; i++) {
             Eaux[i] = E[i];
-            this.E[i] = (sensibilizadaComun(i) ? 1 : 0); //actualiza vector
+            this.E[i] = (sensibilizadaComun(i) ? 1 : 0); //actualiza vector de sensibilizadas, 1 si esta sensibilizada la transicion
+                                                         //y 0 si no esta sensibilizada
         }
     }
 
-    private boolean sensibilizadaComun(int i){
+    private boolean sensibilizadaComun(int i){ //marcaActual-(Imenos*Sigma) para comprobar si la transicion saca tokens y hay toquens en la plaza
         int[] mprueba = op.sumar(marcaActual, op.multiplicarXEscalar(op.multiplicar(Imenos, generarVectorDisparo(i)), -1));
         for(int u = 0 ; u < mprueba.length; u++){
             if(mprueba[u] < 0) return false;
@@ -70,12 +72,12 @@ public class RedDePetri {
         return true;
     }
 
-    private void crearB() {
+    private void crearB() { //Vector de transiciones des-sensibilizadas por arco inhibidor
         this.B = new int[H.length];
         actualizarB();
     }
 
-    private void actualizarB() {
+    private void actualizarB() { //
         this.Q = op.and(marcaActual,marcaActual); // vector de marcas binario
         this.B = op.complementar(op.multiplicar(H,Q));  //B = not(H' * Q)
     }
@@ -89,7 +91,7 @@ public class RedDePetri {
         actualizarTemporizadas();
     }
 
-    private void actualizarTemporizadas() {
+    private void actualizarTemporizadas() { //Si antes no estaba sensibilizada y luego si, se setea que esta sensibilizada
         for(Integer i : tConTiempo.keySet()){
             if(Eaux[i] == 0 && E[i] == 1){ //se sensibilizo
                 tConTiempo.get(i).setInicioSensibilizado();

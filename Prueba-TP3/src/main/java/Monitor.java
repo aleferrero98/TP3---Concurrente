@@ -9,6 +9,7 @@ public class Monitor {
     private Condicion condicionDeFinalizacion;
     private int finalN2;
     private int finalN1;
+    private final int CANT_TAREAS = 100;
 
 
     public Monitor(RedDePetri red, Politicas politicas,Condicion condicion){
@@ -116,28 +117,15 @@ public class Monitor {
     }
 
     private void actualizarCondiciones(int transicion) {//lleva la cuenta de las tareas que se hacen en cada nucleo(service_rateN1 y N2)
-        /*if(transicion == 0) this.tareasN1++;
-        //if(transicion == 4) this.tareasN2++;
-        System.out.println("N1: "+tareasN1+"      N2: "+tareasN2);
-        if(tareasN1>= 100) this.condicionDeFinalizacion.setCondicion(true); //si se superan las 1000 tareas, se setea la condicion para que finalice el programa
-         */
-        //if(transicion == 0) finalCreador++;
         if(transicion == 3) finalN1++;
         else if(transicion == 12) finalN2++;
-        //else if(transicion == 5) finalCPU++;
 
-        if((finalN1+finalN2) >=10 && !condicionDeFinalizacion.getCondicion()){
+        if((finalN1+finalN2) >=CANT_TAREAS && !condicionDeFinalizacion.getCondicion()){
             System.out.println("Llega");
             desbloquearTodos();
             condicionDeFinalizacion.setCondicion(true);}
 
-        /*if(finalN1+finalN2 >=10) {
-            Obj_Nucleo1.finalizar();
-            Obj_Nucleo2.finalizar();
-            Obj_CPU.finalizar();
-            Obj_CPU2.finalizar();
-        }*/
-        System.out.println(finalN1+"   "+finalN2);
+            System.out.println(finalN1+"   "+finalN2);
 
-    }//CAMBIAR 100 POR 1000 TAREAS EN TOTAL
+            }//CAMBIAR 100 POR 1000 TAREAS EN TOTAL
 }

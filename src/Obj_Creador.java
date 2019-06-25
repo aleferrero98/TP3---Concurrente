@@ -27,6 +27,7 @@ public class Obj_Creador extends Thread {
                 e.printStackTrace();
             }
         }
+
     }
     public static void finalizar(){
         finalizar=true;
