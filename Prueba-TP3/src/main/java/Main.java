@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 public class Main {
 
-    private static String path_matrices = "C:\\Users\\Pato\\Documents\\2019 1\\Programacion concurrente\\TP3\\TP3---Concurrente\\Txt_Rdp";
+    private static String path_matrices = "C:\\Users\\alejandro\\Documents\\GitHub\\TP3---Concurrente\\Txt_Rdp";
     private static String path_Imas = path_matrices+"\\Matriz_I+.txt";
     private static String path_Imenos = path_matrices+"\\Matriz_I-.txt";
     private static String path_H = path_matrices+"\\Matriz_H.txt";
@@ -16,7 +16,7 @@ public class Main {
         System.out.println(today.get(Calendar.HOUR_OF_DAY)+":"+today.get(Calendar.MINUTE)+":"+today.get(Calendar.SECOND)+":"+today.get(Calendar.MILLISECOND));
         int duracionSeg, duracionMin;
 
-       // Archivo archivo = new Archivo();
+        Archivo archivo = new Archivo();
 
         int[] marcaInicial = {0,0,0,1,1,0,0,0,1,0,0,1,0,0,1,0};
 
@@ -93,7 +93,7 @@ public class Main {
         transicionesConTiempo.put(t3.getID(),t3);
         transicionesConTiempo.put(t12.getID(),t12);
 
-        RedDePetri rdp = new RedDePetri(marcaInicial, Imenos, Imas,matrizInhibicionH, transicionesConTiempo);
+        RedDePetri rdp = new RedDePetri(marcaInicial, Imenos, Imas,matrizInhibicionH, transicionesConTiempo, archivo);
         Politicas politica = new Politicas(rdp);
 
         //SETEAR PRIORIDADES A CADA TRANSICION
@@ -176,8 +176,9 @@ public class Main {
         }
         System.out.println("Duracion total del programa: "+ duracionMin + " min y " + duracionSeg + " seg." );
 
-
         System.out.println("Fin del hilo Main");
+
+        System.exit(0);
 
     }
 }

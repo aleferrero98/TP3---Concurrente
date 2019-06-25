@@ -110,18 +110,10 @@ public class Monitor {
     private void desbloquearTodos(){
         for(CVSemaforo v : VariablesDeCondicion){
                 desbloquearUno();
-                System.out.println("desbloqueando");
-
         }
     }
 
     private void actualizarCondiciones(int transicion) {//lleva la cuenta de las tareas que se hacen en cada nucleo(service_rateN1 y N2)
-        /*if(transicion == 0) this.tareasN1++;
-        //if(transicion == 4) this.tareasN2++;
-        System.out.println("N1: "+tareasN1+"      N2: "+tareasN2);
-        if(tareasN1>= 100) this.condicionDeFinalizacion.setCondicion(true); //si se superan las 1000 tareas, se setea la condicion para que finalice el programa
-         */
-        //if(transicion == 0) finalCreador++;
         if(transicion == 3) finalN1++;
         else if(transicion == 12) finalN2++;
         //else if(transicion == 5) finalCPU++;
@@ -129,7 +121,12 @@ public class Monitor {
         if((finalN1+finalN2) >=10 && !condicionDeFinalizacion.getCondicion()){
             System.out.println("Llega");
             desbloquearTodos();
-            condicionDeFinalizacion.setCondicion(true);}
+            condicionDeFinalizacion.setCondicion(true);
+            System.out.println("Tareas completadas en N1: "+finalN1);
+            System.out.println("Tareas completadas en N2: "+finalN2);
+            RdP.printArchivo(finalN1,"Tareas completadas en N1");
+            RdP.printArchivo(finalN2,"Tareas completadas en N2");
+        }
 
         /*if(finalN1+finalN2 >=10) {
             Obj_Nucleo1.finalizar();
@@ -137,7 +134,7 @@ public class Monitor {
             Obj_CPU.finalizar();
             Obj_CPU2.finalizar();
         }*/
-        System.out.println(finalN1+"   "+finalN2);
+
 
     }//CAMBIAR 100 POR 1000 TAREAS EN TOTAL
 }

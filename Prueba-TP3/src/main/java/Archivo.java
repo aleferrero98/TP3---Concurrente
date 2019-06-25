@@ -8,7 +8,7 @@ public class Archivo {
 
     public Archivo() {
 
-        /*
+
         try
         {
             archivo=new FileWriter("C:\\Users\\alejandro\\Desktop\\log.txt");
@@ -18,7 +18,7 @@ public class Archivo {
         } catch(Exception e) {     //Si existe un problema cae aqui
 
             System.out.println("Error al escribir: "+ e.getMessage());
-        }*/
+        }
     }
 
     public void escribirArchivo(String datos) throws IOException {

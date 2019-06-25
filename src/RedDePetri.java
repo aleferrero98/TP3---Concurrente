@@ -57,16 +57,17 @@ public class RedDePetri {
             int[] disparoSensibilizado;
             disparoSensibilizado = op.and(generarVectorDisparo(transicion),this.Ex.getEx());  //sigma and Ex
             imprimir(disparoSensibilizado, "Sigma");
-            imprimir(marcaActual, "Mj");
+         //   imprimir(marcaActual, "Mj");
             marcaActual = op.sumar(marcaActual, op.multiplicarXEscalar(op.multiplicar(Imenos, disparoSensibilizado),-1)); //Ecuacion de estado generalizada: Mj+1 = Mj + Imenos*(sigma and Ex)
-            imprimir(marcaActual, "Mj+1");
+          //  imprimir(marcaActual, "Mj+1");
             marcaActual = op.sumar(marcaActual, op.multiplicar(Imas, disparoSensibilizado)); //Ecuacion de estado generalizada: Mj+2 = Mj+1 + Imas*(sigma and Ex)
             imprimir(marcaActual, "Mj+2");
             actualizarVectoresSensibilizadas();
         }else{
             throw new IllegalDisparoException();
         }
-        actualizarVectoresSensibilizadas();
+        System.out.println("se dispara: "+ transicion);
+
     }
 
     private int[] generarVectorDisparo(int transicion){  //A partir del nro de transicion (ID) se genera un vector de disparo con todos ceros menos la transicion a disparar

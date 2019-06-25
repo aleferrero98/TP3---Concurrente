@@ -29,6 +29,7 @@ public class Monitor {
                 e.printStackTrace();
             }
             while(!(RdP.esSensibilizada(transicion))){  //si la transicion no es sensibilizada (extendida) se bloquea
+                System.out.println("SE BLOQUEA: " + transicion);
                 VariablesDeCondicion[transicion].Delay();       //bloqueo
             }
             if(RdP.esTemporizada(transicion)) dispararTemporizada(transicion);
@@ -50,6 +51,7 @@ public class Monitor {
             int transicion = this.politica.decidir(transiciones); //la politica elige una de las transiciones que le piden que dispare
                                                                   //es decir realiza la resolucion del conflicto
             while(!(RdP.esSensibilizada(transicion))){  //si la transicion no es sensibilizada (extendida) se bloquea
+                System.out.println("SE BLOQUEA: "+transicion);
                 VariablesDeCondicion[transicion].Delay();       //bloqueo
             }
             if(RdP.esTemporizada(transicion)) dispararTemporizada(transicion);
@@ -87,7 +89,9 @@ public class Monitor {
     private void desbloquearUno(){      //desbloquea un hilo de las colas de condicion cuya transicion esté sensibilizada
         ArrayList<Integer> desbloqueables = ColasAndSensibilizadas();
         if(!desbloqueables.isEmpty()){
-            VariablesDeCondicion[politica.decidir(desbloqueables)].Resume();
+            int desbloqueado=politica.decidir(desbloqueables);
+            System.out.println("SE DESBLOQUEA: "+ desbloqueado);
+            VariablesDeCondicion[desbloqueado].Resume();
         }
         return;
     }

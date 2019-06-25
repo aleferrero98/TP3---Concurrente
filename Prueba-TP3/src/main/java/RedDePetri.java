@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,9 +18,10 @@ public class RedDePetri {
     private int[] temp;
     private OperadorConMatrices op;
     private HashMap<Integer, TransicionConTiempo> tConTiempo; //aca se lleva Z en realidad
+    private Archivo archivo;
 
 
-    public RedDePetri(int[] marcaInicial, int[][] Imenos, int[][] Imas, int[][] H, HashMap<Integer, TransicionConTiempo> tConTiempo) {
+    public RedDePetri(int[] marcaInicial, int[][] Imenos, int[][] Imas, int[][] H, HashMap<Integer, TransicionConTiempo> tConTiempo, Archivo archivo) {
 
         this.marcaActual = marcaInicial;
         this.Imenos = Imenos;
@@ -27,6 +29,7 @@ public class RedDePetri {
         this.op = new OperadorConMatrices();
         this.H = op.traspuesta(H); //ya la guarda como traspuesta para agilizar los calculos
         this.tConTiempo = tConTiempo;
+        this.archivo = archivo;
         crearExtendida();
     }
 
@@ -43,6 +46,12 @@ public class RedDePetri {
         actualizarB();
         actualizarTemporizadas();
         this.Ext =op.and(E,B);
+        imprimir(Ext, "Ext");
+        imprimir(E, "E");
+        imprimir(B, "B");
+        printArchivo(E,"E");
+        printArchivo(B,"B");
+        printArchivo(Ext,"Ext");
     }
 
 
@@ -112,13 +121,13 @@ public class RedDePetri {
             int[] disparoSensibilizado = generarVectorDisparo(transicion); //sigma
             imprimir(disparoSensibilizado, "Sigma");
             imprimir(marcaActual, "Mj");
+            printArchivo(marcaActual,"Mj");
             marcaActual = op.sumar(marcaActual, op.multiplicarXEscalar(op.multiplicar(Imenos, disparoSensibilizado),-1)); //Ecuacion de estado generalizada: Mj+1 = Mj + Imenos*(sigma and Ex)
             imprimir(marcaActual, "Mj+1");
             marcaActual = op.sumar(marcaActual, op.multiplicar(Imas, disparoSensibilizado)); //Ecuacion de estado generalizada: Mj+2 = Mj+1 + Imas*(sigma and Ex)
             imprimir(marcaActual, "Mj+2");
-            imprimir(Ext, "Ext");
-            imprimir(E, "E");
-            imprimir(B, "B");
+            printArchivo(marcaActual,"Mj+2");
+
             actualizarExt();
         }else{
             throw new IllegalDisparoException();
@@ -170,5 +179,33 @@ public class RedDePetri {
         }
         System.out.println();
         System.out.println("---------------------\n");
+    }
+
+    private void printArchivo(int[] a, String name){
+       // String cadena = name + ": ";
+        String cadena = "";
+        for (int n = 0; n < a.length; n++) {
+                cadena += a[n] + " ";
+        }
+        cadena +=  " :" + name;
+            try {
+
+                archivo.escribirArchivo(cadena);   //escribe en el archivo log
+
+            } catch (IOException ex) {
+                System.out.println(ex.getMessage());
+
+            }
+        }
+
+    public void printArchivo(int a, String name){
+         String cadena = name + ": " + a;
+        try {
+
+            archivo.escribirArchivo(cadena);   //escribe en el archivo log
+
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
     }
 }
