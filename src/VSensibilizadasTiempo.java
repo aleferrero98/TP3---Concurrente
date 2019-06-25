@@ -31,7 +31,7 @@ public class VSensibilizadasTiempo {
                 Z[recorrer.getID()]=0;
             }
         }
-        imprimir();
+        //imprimir();
     }
 
     public int[] getZ() {

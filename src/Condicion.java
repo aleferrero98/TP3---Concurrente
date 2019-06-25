@@ -12,7 +12,11 @@ public class Condicion {
             Obj_Nucleo2.finalizar();
             Obj_Creador.finalizar();
             Obj_CPU.finalizar();
+            Obj_CPU2.finalizar();
         }
+    }
+    public boolean getCondicion(){
+        return condicion;
     }
 
 }

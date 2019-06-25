@@ -30,14 +30,13 @@ public class RedDePetri {
                 case 3:     //transicion temporal Service_rateN1
                     transicionList.add(new TransicionConTiempo(i,700,1000000000));
                     break;
-                case 4:     //transicion temporal Service_rateN2
+                case 12:     //transicion temporal Service_rateN2
                     transicionList.add(new TransicionConTiempo(i,900,1000000000));
                     break;
                 default:
                     transicionList.add(new TransicionComun(i));
                     break;
-            }
-             */
+            }*/
             transicionList.add(new TransicionComun(i));
         }
         VSensibilizadas E = new VSensibilizadas(this.marcaActual, this.transicionList, this.Imenos);

@@ -11,7 +11,7 @@ public class VectorQ {
         for(int i=0;i<marcaActual.length;i++){
             Q[i]=(marcaActual[i]!=0)? 1 : 0;
         }
-        imprimir();
+        //imprimir();
     }
 
     public int[] getQ() {

@@ -20,7 +20,7 @@ public class VSensibilizadasExt {
         B.actualizar(marcaActual);
         Z.actualizar();
         actualizarDentro();
-        imprimir();
+        //imprimir();
     }
         //Ex = E and complemento(B) and Z
     private void actualizarDentro() {

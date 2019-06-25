@@ -11,8 +11,8 @@ public class Obj_Nucleo2 extends Thread {
     public void run(){
         while(!finalizar) {
             try {
-                monitor.disparar(9);
-                monitor.disparar(4);
+                monitor.disparar(13);
+                monitor.disparar(12);
             } catch (Exception e) {
                 System.out.println("ocurrio: " + e.getMessage());
                 e.printStackTrace();

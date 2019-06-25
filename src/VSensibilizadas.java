@@ -26,8 +26,8 @@ public class VSensibilizadas {
 
         }
         sensibilizarTemporales(); //se toma la hora de inicio de sensibilizado de las transiciones temporales
-        imprimir(marcaActual,"marca actual");
-        imprimir();
+        //imprimir(marcaActual,"marca actual");
+        //imprimir();
     }
 
     private boolean esSensibilizadoInterno(int transicion){ //devuelve true si la transicion esta sensibilizada

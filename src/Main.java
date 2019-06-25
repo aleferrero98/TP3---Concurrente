@@ -14,36 +14,44 @@ public class Main {
 
        // Archivo archivo = new Archivo();
 
-        int[] marcaInicial = {0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1};
+        int[] marcaInicial = {0,0,0,1,1,0,0,0,1,0,0,1,0,0,1,0};
 
-        int[][] Imas = {     //T0  T1  T2  T3  T4  T5  T6  T7  T8  T9  T10
-                                {0,	0,	0,	0,	0,	0,	0,	0,	1,	0,	0},
-                                {0,	0,	0,	0,	0,	0,	0,	0,	0,	1,	0},     //matriz de incidencia de entrada
-                                {0,	0,	0,	0,	0,	0,	1,	0,	0,	0,	0},
-                                {0,	0,	0,	0,	0,	0,	0,	1,	0,	0,	0},
-                                {0,	0,	1,	0,	0,	1,	0,	0,	1,	1,	0},
-                                {0,	0,	0,	1,	0,	0,	0,	0,	0,	0,	0},
-                                {0,	0,	0,	0,	1,	0,	0,	0,	0,	0,	0},
-                                {0,	0,	0,	0,	0,	0,	1,	1,	0,	0,	0},
-                                {1,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0},
-                                {0,	0,	0,	0,	0,	0,	1,	1,	0,	0,	1},
-                                {0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	1},
-                                {0,	1,	0,	0,	0,	0,	0,	0,	0,	0,	0}
+        int[][] Imas = {    //T0 T1 T2 T3 T4 T5 T6 T7 T8 T9 T10 T11 T12 T13 T14 T15
+                            { 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                            { 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                            { 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0},
+                            { 0, 0,	0, 1, 0, 0,	0, 0, 0, 0,	0, 0, 0, 0,	0},
+                            { 0, 0,	0, 0, 1, 0,	0, 0, 0, 0, 0, 0, 0, 0,	1},
+                            { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,	0},
+                            { 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0},
+                            { 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0,	0},
+                            { 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,	0},
+                            { 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1,	0},
+                            { 0, 0,	0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0,	1},
+                            { 0, 0,	0, 0, 0, 0,	0,	0,	1,	0,	0,	0,	0,	0,	0},
+                            { 0, 0,	0, 0, 0, 0,	0,	0,	0,	0,	0,	1,	0,	0,	0},
+                            { 0, 0,	0, 0, 0,	0,	0,	0,	0,	0,	0,	0,	0,	1,	0},
+                            { 0, 0,	0, 0, 0,	0,	0,	0,	0,	0,	0,	0,	1,	0,	0},
+                            { 0, 0,	0, 0, 0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	1},
         };
 
         int[][] Imenos = {     //T0  T1  T2  T3  T4  T5  T6  T7  T8  T9  T10
-                                {0,	0,	0,	1,	0,	0,	0,	0,	0,	0,	0},         //matriz de incidencia de salida
-                                {0,	0,	0,	0,	1,	0,	0,	0,	0,	0,	0},
-                                {0,	0,	0,	0,	0,	0,	0,	0,	1,	0,	0},
-                                {0,	0,	0,	0,	0,	0,	0,	0,	0,	1,	0},
-                                {0,	1,	0,	0,	0,	1,	0,	0,	1,	1,	0},
-                                {0,	0,	0,	0,	0,	0,	0,	0,	1,	0,	0},
-                                {0,	0,	0,	0,	0,	0,	0,	0,	0,	1,	0},
-                                {1,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0},
-                                {0,	0,	0,	0,	0,	0,	1,	1,	0,	0,	0},
-                                {0,	0,	1,	0,	0,	1,	0,	0,	0,	0,	1},
-                                {0,	0,	1,	0,	0,	0,	0,	0,	0,	0,	0},
-                                {0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	1}
+                {0,	0,	0,	1,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0},
+                {0,	0,	0,	0,	0,	1,	0,	0,	0,	0,	0,	0,	0,	0,	0},
+                {0,	1,	0,	0,	0,	1,	1,	0,	0,	0,	0,	0,	0,	0,	0},
+                {0,	0,	0,	0,	0,	1,	0,	0,	0,	0,	0,	0,	0,	0,	0},
+                {1,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0},
+                {0,	0,	0,	0,	1,	0,	0,	0,	0,	0,	0,	0,	0,	0,	1},
+                {0,	0,	1,	0,	0,	0,	1,	1,	0,	0,	0,	0,	0,	0,	0},
+                {0,	0,	1,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0},
+                {0,	0,	0,	0,	0,	0,	0,	1,	0,	0,	0,	0,	0,	0,	0},
+                {0,	0,	0,	0,	0,	0,	0,	0,	1,	0,	1,	0,	0,	1,	0},
+                {0,	0,	0,	0,	0,	0,	0,	0,	0,	1,	1,	1,	0,	0,	0},
+                {0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	1,	0,	0,	0},
+                {0,	0,	0,	0,	0,	0,	0,	0,	0,	1,	0,	0,	0,	0,	0},
+                {0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	1,	0,	0},
+                {0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	1,	0},
+                {0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	1,	0},
 
         };
 
@@ -66,24 +74,49 @@ public class Main {
         politica.addPrioridad(8 , 0); // T8 y T9 tienen mayor prioridad, para descongestionar el buffer
         politica.addPrioridad(9 , 0);
         politica.addPrioridad(10, 0);
+        politica.addPrioridad(11, 0);
+        politica.addPrioridad(12, 0);
+        politica.addPrioridad(13, 0);
+        politica.addPrioridad(14, 0);
 
         Condicion condicionDeFinalizacion = new Condicion(false);
         Monitor monitor = new Monitor(rdp, politica,condicionDeFinalizacion);
 
         Obj_CPU cpu = new Obj_CPU(monitor);
+        Obj_CPU2 cpu2 = new Obj_CPU2(monitor);
         Obj_Creador creador = new Obj_Creador(monitor);
         Obj_Nucleo1 nucleo1 = new Obj_Nucleo1(monitor);
         Obj_Nucleo2 nucleo2 = new Obj_Nucleo2(monitor);
 
         cpu.start();
+        cpu2.start();
         creador.start();
         nucleo1.start();
         nucleo2.start();
 
+
+
         cpu.join();
+        cpu2.join();
         creador.join();
         nucleo1.join();
         nucleo2.join();
+        boolean condicion=true;
+        while (condicion){
+            if(condicionDeFinalizacion.getCondicion()){
+                /*cpu.interrupt();
+                cpu2.interrupt();
+                creador.interrupt();
+                nucleo1.interrupt();
+                nucleo2.interrupt();*/
+                cpu.stop();
+                cpu2.stop();
+                creador.stop();
+                nucleo1.stop();
+                nucleo2.stop();
+                condicion=false;
+            }
+        }
 
         Calendar today2 = Calendar.getInstance();
         System.out.print("Hora de fin: ");   //horas:minutos:segundos:milisegundos de fin del programa
