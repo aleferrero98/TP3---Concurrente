@@ -141,6 +141,11 @@ public class RedDePetri {
 
             if(!seCumplenPInvariantes()){
                 System.out.println("\n\n ERROR NO SE CUMPLEN P INVARIANTES! \n");
+                try {
+                    archivo.escribirArchivo("ERROR, NO SE CUMPLEN LOS P INVARIANTES");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
 
         }else{

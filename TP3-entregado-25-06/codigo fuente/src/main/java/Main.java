@@ -4,7 +4,8 @@ import java.util.HashMap;
 
 public class Main {
 
-    private static String path_matrices = "C:\\Users\\alejandro\\Documents\\GitHub\\TP3---Concurrente\\Txt_Rdp";
+    //private static String path_matrices = "C:\\Users\\alejandro\\Documents\\GitHub\\TP3---Concurrente\\TP3-entregado-25-06\\Txt_Rdp";
+    private static String path_matrices = "src\\main\\java\\matrices";
     private static String path_Imas = path_matrices+"\\Matriz_I+.txt";
     private static String path_Imenos = path_matrices+"\\Matriz_I-.txt";
     private static String path_H = path_matrices+"\\Matriz_H.txt";

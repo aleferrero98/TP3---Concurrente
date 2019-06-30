@@ -10,6 +10,7 @@ public class Monitor {
     private int finalN2;
     private int finalN1;
     private final int CANT_TAREAS = 1000;
+    private String disparosRealizados;
 
 
     public Monitor(RedDePetri red, Politicas politicas,Condicion condicion){
@@ -32,8 +33,15 @@ public class Monitor {
             while(!(RdP.esSensibilizada(transicion))){  //si la transicion no es sensibilizada (extendida) se bloquea
                 VariablesDeCondicion[transicion].Delay();       //bloqueo
             }
-            if(RdP.esTemporizada(transicion)) dispararTemporizada(transicion);
-            else RdP.disparar(transicion); //dispara la transicion actualizando asi el estado
+            if(RdP.esTemporizada(transicion)){
+                dispararTemporizada(transicion);
+                this.disparosRealizados += "T" + transicion;
+            }
+            else {
+                RdP.disparar(transicion); //dispara la transicion actualizando asi el estado
+                this.disparosRealizados += "T" + transicion;
+
+            }
 
             actualizarCondiciones(transicion);
             desbloquearUno();          //desbloqueo otro hilo
@@ -55,10 +63,14 @@ public class Monitor {
             while(!(RdP.esSensibilizada(transicion))){  //si la transicion no es sensibilizada (extendida) se bloquea
                 VariablesDeCondicion[transicion].Delay();       //bloqueo
             }
-            if(RdP.esTemporizada(transicion)) dispararTemporizada(transicion);//dispara la transicion temporal actualizando asi el estado
-
-            else RdP.disparar(transicion); //dispara la transicion actualizando asi el estado
-
+            if(RdP.esTemporizada(transicion)){
+                dispararTemporizada(transicion);//dispara la transicion temporal actualizando asi el estado
+                this.disparosRealizados += "T" + transicion;
+            }
+            else {
+                RdP.disparar(transicion); //dispara la transicion actualizando asi el estado
+                this.disparosRealizados += "T" + transicion;
+            }
 
             actualizarCondiciones(transicion);
             desbloquearUno();          //desbloqueo otro hilo
@@ -132,6 +144,42 @@ public class Monitor {
             RdP.printArchivo(finalN2,"Tareas completadas en N2");
         }
 
-
     }
+  /*  public String toString(int transicion) throws Exception {
+        switch(transicion){
+            case 0:
+                return "arrival_rate";
+            case 1:
+                return "power_down_TN1";
+            case 2:
+                return "power_up_delayN1";
+            case 3:
+                return "service_rateN1";
+            case 4:
+                return "TA_N1";
+            case 5:
+                return "TB_N1";
+            case 6:
+                return "TD_N1";
+            case 7:
+                return "TC_N1";
+            case 8:
+                return "power_down_TN2";
+            case 9:
+                return "power_up_delayN2";
+            case 10:
+                return "TD_N2";
+            case 11:
+                return "TC_N2";
+            case 12:
+                return "service_rateN2";
+            case 13:
+                return "TB_N2";
+            case 14:
+                return "TA_N2";
+            default:
+                throw new Exception("numero de transicion no valido");
+        }
+    }*/
+
 }
