@@ -295,27 +295,46 @@ public class RedDePetri {
 
     public void sacarTodasLasTransiciones(ArrayList<Integer> disparos, ArrayList<Integer> invariante){
         boolean inv = false;
+
         do{
             inv = invariante(disparos, invariante);
+            System.out.println("do while: "+inv);
         }while(inv);
+
     }
     public boolean invariante(ArrayList<Integer> disparos,  ArrayList<Integer> invariante){
-        int[] valoresAsacar = new int[invariante.size()];
-        valoresAsacar[0] = buscarTransicion(0,invariante.get(0),disparos);
+        //int[] valoresAsacar = new int[invariante.size()];
+        //valoresAsacar[0] = buscarTransicion(0,invariante.get(0),disparos);
+        ArrayList<Integer> valoresAsacar = new ArrayList<>();   //guarda el indice(del arreglo "disparos") de la transicion a sacar
+        valoresAsacar.add(buscarTransicion(0,invariante.get(0),disparos)); //se fija para la primer transicion
+        int valor;
         for(int i=1; i < invariante.size(); i++){
-            valoresAsacar[i] = buscarTransicion(valoresAsacar[i-1],invariante.get(0),disparos);
-            if(valoresAsacar[i] < 0){
+            //valoresAsacar[i] = buscarTransicion(valoresAsacar[i-1],invariante.get(0),disparos);
+            valor = buscarTransicion(valoresAsacar.get(i-1),invariante.get(i),disparos);
+
+            if(valor < 0){
                 return false;
             }
+            valoresAsacar.add(valor);
         }
+
+        for(Integer recorrer: valoresAsacar){
+            disparos.remove(recorrer);
+        }
+        /*
+        for(int j=0; j<valoresAsacar.length; j++){
+            disparos.remove(valoresAsacar[j]);
+        }*/
         return true;
     }
 
-    public int buscarTransicion(int inicio, int transicion, ArrayList<Integer> disparos){
-        for(int i=inicio; i<disparos.size(); i++){
+    public int buscarTransicion(int inicio, int transicion, ArrayList<Integer> disparos){ //busca la transicion indicada en el arreglo de transiciones que se dispararon
+        for(int i=inicio; i<disparos.size(); i++){              //devuelve la posicion en el arreglo en la que se encuentra dicha transicion
             if(disparos.get(i)==transicion){
+                System.out.println(disparos.get(i)+" es igual a "+transicion);
                 return i;
             }
+            System.out.println(disparos.get(i)+" es distinto a "+transicion);
         }
         return -1;
     }

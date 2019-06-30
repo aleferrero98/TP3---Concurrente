@@ -38,7 +38,7 @@ public class Main {
         marcaInicial = op.toVector(f.leerMatriz(path_marca));
         //------------------
         HashMap<Integer, TransicionConTiempo> transicionesConTiempo = new HashMap<>();
-        TransicionConTiempo t1 = new TransicionConTiempo(0, 5);
+        TransicionConTiempo t1 = new TransicionConTiempo(0, 25);
         TransicionConTiempo t3 = new TransicionConTiempo(3, 50);
         TransicionConTiempo t12 = new TransicionConTiempo(12, 50);
         transicionesConTiempo.put(t1.getID(),t1);
@@ -58,15 +58,15 @@ public class Main {
         politica.addPrioridad(2 , 0);
         politica.addPrioridad(3 , 2);
         politica.addPrioridad(4 , 0);
-        politica.addPrioridad(5 , 3);
-        politica.addPrioridad(6 , 1);
+        politica.addPrioridad(5 , 0);
+        politica.addPrioridad(6 , 0);
         politica.addPrioridad(7 , 0);
         politica.addPrioridad(8 , 0);
         politica.addPrioridad(9 , 0);
-        politica.addPrioridad(10, 1);
+        politica.addPrioridad(10, 0);
         politica.addPrioridad(11, 0);
         politica.addPrioridad(12, 2);
-        politica.addPrioridad(13, 3);
+        politica.addPrioridad(13, 0);
         politica.addPrioridad(14, 0);
 
         Condicion condicionDeFinalizacion = new Condicion(false);
@@ -95,11 +95,36 @@ public class Main {
                 nucleo1.interrupt();
                 nucleo2.interrupt();
 
-                rdp.verificarTinvariantes(monitor.getDisparos());
-                System.out.println("Las transiciones sobrantes son: ");
-                for(Integer i:monitor.getDisparos()){
-                    System.out.print(i + " ");
-                }
+        System.out.println("Transiciones disparadas: ");
+        for(Integer i:monitor.getDisparos()){
+            System.out.print(i + " ");
+        }
+        System.out.println();
+        System.out.println("cantidad: "+monitor.getDisparos().size());
+
+        System.out.println("Transiciones NUNCA disparadas: ");
+        boolean[] transicionesDisparadas = new boolean[15];
+        for(int i=0; i<transicionesDisparadas.length; i++){
+            transicionesDisparadas[i]=false;
+        }
+        for(Integer i:monitor.getDisparos()){
+            transicionesDisparadas[monitor.getDisparos().get(i)]=true;
+        }
+        for(int i=0; i<transicionesDisparadas.length; i++){
+            if(!transicionesDisparadas[i]) {
+                System.out.print(i + " ");
+            }
+        }
+        System.out.println();
+
+        rdp.verificarTinvariantes(monitor.getDisparos());
+
+        System.out.println("Las transiciones sobrantes son: ");
+        for(Integer i:monitor.getDisparos()){
+            System.out.print(i + " ");
+        }
+        System.out.println();
+        System.out.println("cantidad: "+monitor.getDisparos().size());
 
 
         Calendar today2 = Calendar.getInstance();

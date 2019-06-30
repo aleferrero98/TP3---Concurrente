@@ -9,7 +9,7 @@ public class Monitor {
     private Condicion condicionDeFinalizacion;
     private int finalN2;
     private int finalN1;
-    private final int CANT_TAREAS = 10;
+    private final int CANT_TAREAS = 100;
     private String disparosRealizados;
     private ArrayList<Integer> disparos;
 
