@@ -252,4 +252,71 @@ public class RedDePetri {
             System.out.println(ex.getMessage());
         }
     }
+    public ArrayList<Integer> verificarTinvariantes(ArrayList<Integer> disparos){
+        ArrayList<Integer> invariante = new ArrayList<>();
+        invariante.add(0);
+        invariante.add(4);
+        invariante.add(7);
+        invariante.add(2);
+        invariante.add(5);
+        invariante.add(3);
+        invariante.add(1);
+        sacarTodasLasTransiciones(disparos,invariante);
+        invariante.clear();
+
+        invariante.add(0);
+        invariante.add(14);
+        invariante.add(11);
+        invariante.add(9);
+        invariante.add(13);
+        invariante.add(12);
+        invariante.add(8);
+        sacarTodasLasTransiciones(disparos,invariante);
+        invariante.clear();
+
+        invariante.add(0);
+        invariante.add(4);
+        invariante.add(6);
+        invariante.add(5);
+        invariante.add(3);
+        sacarTodasLasTransiciones(disparos,invariante);
+        invariante.clear();
+
+        invariante.add(0);
+        invariante.add(14);
+        invariante.add(10);
+        invariante.add(13);
+        invariante.add(12);
+        sacarTodasLasTransiciones(disparos,invariante);
+        invariante.clear();
+
+        return disparos;
+    }
+
+    public void sacarTodasLasTransiciones(ArrayList<Integer> disparos, ArrayList<Integer> invariante){
+        boolean inv = false;
+        do{
+            inv = invariante(disparos, invariante);
+        }while(inv);
+    }
+    public boolean invariante(ArrayList<Integer> disparos,  ArrayList<Integer> invariante){
+        int[] valoresAsacar = new int[invariante.size()];
+        valoresAsacar[0] = buscarTransicion(0,invariante.get(0),disparos);
+        for(int i=1; i < invariante.size(); i++){
+            valoresAsacar[i] = buscarTransicion(valoresAsacar[i-1],invariante.get(0),disparos);
+            if(valoresAsacar[i] < 0){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public int buscarTransicion(int inicio, int transicion, ArrayList<Integer> disparos){
+        for(int i=inicio; i<disparos.size(); i++){
+            if(disparos.get(i)==transicion){
+                return i;
+            }
+        }
+        return -1;
+    }
 }

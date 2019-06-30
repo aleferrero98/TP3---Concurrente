@@ -9,8 +9,9 @@ public class Monitor {
     private Condicion condicionDeFinalizacion;
     private int finalN2;
     private int finalN1;
-    private final int CANT_TAREAS = 1000;
+    private final int CANT_TAREAS = 10;
     private String disparosRealizados;
+    private ArrayList<Integer> disparos;
 
 
     public Monitor(RedDePetri red, Politicas politicas,Condicion condicion){
@@ -21,6 +22,7 @@ public class Monitor {
         this.condicionDeFinalizacion = condicion;
         this.finalN1 = 0;
         this.finalN2 = 0;
+        this.disparos = new ArrayList<>();
     }
 
     public void disparar(int transicion) throws IllegalDisparoException {
@@ -36,11 +38,12 @@ public class Monitor {
             if(RdP.esTemporizada(transicion)){
                 dispararTemporizada(transicion);
                 this.disparosRealizados += "T" + transicion;
+                this.disparos.add(transicion);
             }
             else {
                 RdP.disparar(transicion); //dispara la transicion actualizando asi el estado
                 this.disparosRealizados += "T" + transicion;
-
+                this.disparos.add(transicion);
             }
 
             actualizarCondiciones(transicion);
@@ -66,10 +69,12 @@ public class Monitor {
             if(RdP.esTemporizada(transicion)){
                 dispararTemporizada(transicion);//dispara la transicion temporal actualizando asi el estado
                 this.disparosRealizados += "T" + transicion;
+                this.disparos.add(transicion);
             }
             else {
                 RdP.disparar(transicion); //dispara la transicion actualizando asi el estado
                 this.disparosRealizados += "T" + transicion;
+                this.disparos.add(transicion);
             }
 
             actualizarCondiciones(transicion);
@@ -144,6 +149,10 @@ public class Monitor {
             RdP.printArchivo(finalN2,"Tareas completadas en N2");
         }
 
+    }
+
+    public ArrayList<Integer> getDisparos(){
+        return disparos;
     }
   /*  public String toString(int transicion) throws Exception {
         switch(transicion){

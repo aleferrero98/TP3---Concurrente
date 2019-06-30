@@ -95,6 +95,12 @@ public class Main {
                 nucleo1.interrupt();
                 nucleo2.interrupt();
 
+                rdp.verificarTinvariantes(monitor.getDisparos());
+                System.out.println("Las transiciones sobrantes son: ");
+                for(Integer i:monitor.getDisparos()){
+                    System.out.print(i + " ");
+                }
+
 
         Calendar today2 = Calendar.getInstance();
         System.out.print("Hora de fin: ");   //horas:minutos:segundos:milisegundos de fin del programa
@@ -113,7 +119,9 @@ public class Main {
         System.out.println("Duracion total en miliseg: " + duracionMiliseg);
         System.out.println("Fin del hilo Main");
 
+
         System.exit(0);
 
     }
+
 }
