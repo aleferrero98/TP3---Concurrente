@@ -21,6 +21,13 @@ public class RedDePetri {
     private HashMap<Integer, TransicionConTiempo> tConTiempo; //aca se lleva Z en realidad
     private Archivo archivo;
 
+    private int[][] PInvariantes = {{0,3,1},  //cada fila es{p0,p1,...,pk,r} tal que -> m(p0)+m(p1)+...+m(pk) = r
+                                    {4,5,1},
+                                    {13,14,1},
+                                    {2,7,8,1},
+                                    {9,12,11,1}};
+
+
 
     public RedDePetri(int[] marcaInicial, int[][] Imenos, int[][] Imas, int[][] H, HashMap<Integer, TransicionConTiempo> tConTiempo, Archivo archivo) {
 
@@ -131,6 +138,11 @@ public class RedDePetri {
             printArchivo(marcaActual,"Mj+2");
 
             actualizarExt();
+
+            if(!seCumplenPInvariantes()){
+                System.out.println("\n\n ERROR NO SE CUMPLEN P INVARIANTES! \n");
+            }
+
         }else{
             throw new IllegalDisparoException();
         }
@@ -163,6 +175,31 @@ public class RedDePetri {
 
     public boolean esTemporizada(int transicion){
         return (temp[transicion] == 1);
+    }
+
+    private boolean seCumplenPInvariantes() {
+        for(int i = 0; i < PInvariantes.length; i++){
+            int suma = 0;
+            for(int j = 0; j < PInvariantes[i].length ; j++){
+                if(j < PInvariantes[i].length - 1) {
+                    int indiceDePlaza = PInvariantes[i][j];
+                    suma += marcaActual[indiceDePlaza];
+                }
+                else if(j == PInvariantes[i].length -1){
+                    if(suma != PInvariantes[i][j]) return false;
+                }
+            }
+        }
+        return true;
+        /*
+        int[] m = marcaActual;
+        if(m[0]+m[3] != 1) return false;
+        else if(m[4]+m[5] != 1) return false;
+        else if(m[13]+m[14] != 1) return false;
+        else if(m[2]+m[7]+m[8] != 1) return false;
+        else if(m[9]+m[12]+m[11] != 1) return false;
+        else return true;
+        */
     }
 
     public void imprimir(int[] a, String name){
