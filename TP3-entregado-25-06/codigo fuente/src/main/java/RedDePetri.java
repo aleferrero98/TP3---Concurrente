@@ -252,7 +252,7 @@ public class RedDePetri {
             System.out.println(ex.getMessage());
         }
     }
-    public ArrayList<Integer> verificarTinvariantes(ArrayList<Integer> disparos){
+    public void verificarTinvariantes(ArrayList<Integer> disparos){
         ArrayList<Integer> invariante = new ArrayList<>();  //contiene la secuencia de transiciones que cumple con un T-invariante
         invariante.add(0);
         invariante.add(4);
@@ -290,7 +290,7 @@ public class RedDePetri {
         sacarTodasLasTransiciones(disparos,invariante);
         invariante.clear();
 
-        return disparos;
+        //return disparos;
     }
 
     //A partir de todas las transiciones disparadas y de un t-invariante, se mira cuantas veces esta ese t-invariante en el arreglo de transiciones
@@ -298,7 +298,8 @@ public class RedDePetri {
         boolean inv = false;
         do{
             inv = invariante(disparos, invariante);
-            //System.out.println("do while: "+inv);
+            System.out.println("do while: "+inv);
+            System.out.println("disparos1: "+disparos.size());
         }while(inv);
 
     }
@@ -318,9 +319,18 @@ public class RedDePetri {
             }
             valoresAsacar.add(valor);
         }
+        System.out.println("valoresAsacar: "+valoresAsacar.size());
+       /*
         for(Integer recorrer: valoresAsacar){
-            disparos.remove(recorrer);
+            disparos.remove(recorrer.intValue());
+        }*/
+
+
+        for(int i=0; i < valoresAsacar.size(); i++){
+            disparos.remove(valoresAsacar.get(i).intValue()-i);
         }
+
+        System.out.println("disparos2: "+disparos.size());
         return true;
     }
 

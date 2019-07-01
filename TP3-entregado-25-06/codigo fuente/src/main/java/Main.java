@@ -53,14 +53,14 @@ public class Main {
         }
         */
         politica.addPrioridad(0 , 0);
-        politica.addPrioridad(1 , 0);
+        politica.addPrioridad(1 , 1);
         politica.addPrioridad(2 , 0);
         politica.addPrioridad(3 , 2);
         politica.addPrioridad(4 , 0);
         politica.addPrioridad(5 , 0);
         politica.addPrioridad(6 , 0);
         politica.addPrioridad(7 , 0);
-        politica.addPrioridad(8 , 0);
+        politica.addPrioridad(8 , 1);
         politica.addPrioridad(9 , 0);
         politica.addPrioridad(10, 0);
         politica.addPrioridad(11, 0);
