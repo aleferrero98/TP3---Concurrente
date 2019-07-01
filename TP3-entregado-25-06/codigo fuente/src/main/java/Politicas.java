@@ -26,10 +26,16 @@ public class Politicas {
             return resolverConflictoBuffer(RdP.getMarcaActual()); //...en CPU_buffer1 y CPU_buffer2
         }
         else if(eleccion == 1 || eleccion==6){
-            return resolverConflictoCPU1(RdP.getMarcaActual());
+            //return resolverConflictoCPU1(RdP.getMarcaActual());
+            if(Math.random()>0.5){
+                return 6;
+            }else return 1;
         }
         else if(eleccion == 8 || eleccion==10){
-            return resolverConflictoCPU2(RdP.getMarcaActual());
+            //return resolverConflictoCPU2(RdP.getMarcaActual());
+            if(Math.random()>0.5){
+                return 10;
+            }else return 8;
         }
         else{
             return eleccion;            //sino se retorna la otra transicion elegida
@@ -48,6 +54,10 @@ public class Politicas {
     private int resolverConflictoBuffer(int[] marcaActual){   //resuelve conflicto entre T4 y T14 para mantener iguales la cantidad de tokens en c/u de los dos buffers
         if(marcaActual[1]<marcaActual[15]){                   //marcado[1] = CPU_buffer1 es alimentado por T4
             return 4;                                         //marcado[15] = CPU_buffer2 es alimentado por T14
+        }else if(marcaActual[1]>marcaActual[15]){
+            return 14;
+        }else if(Math.random()<0.5){        //si llegan a ser iguales se resuleve mediante un nro aleatorio
+            return 4;
         }else return 14;
     }
 }

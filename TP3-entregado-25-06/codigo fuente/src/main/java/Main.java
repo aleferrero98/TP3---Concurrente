@@ -4,7 +4,6 @@ import java.util.HashMap;
 
 public class Main {
 
-    //private static String path_matrices = "C:\\Users\\alejandro\\Documents\\GitHub\\TP3---Concurrente\\TP3-entregado-25-06\\Txt_Rdp";
     private static String path_matrices = "src\\main\\java\\matrices";
     private static String path_Imas = path_matrices+"\\Matriz_I+.txt";
     private static String path_Imenos = path_matrices+"\\Matriz_I-.txt";
@@ -38,7 +37,7 @@ public class Main {
         marcaInicial = op.toVector(f.leerMatriz(path_marca));
         //------------------
         HashMap<Integer, TransicionConTiempo> transicionesConTiempo = new HashMap<>();
-        TransicionConTiempo t1 = new TransicionConTiempo(0, 25);
+        TransicionConTiempo t1 = new TransicionConTiempo(0, 50);
         TransicionConTiempo t3 = new TransicionConTiempo(3, 50);
         TransicionConTiempo t12 = new TransicionConTiempo(12, 50);
         transicionesConTiempo.put(t1.getID(),t1);
@@ -84,7 +83,6 @@ public class Main {
         nucleo1.start();
         nucleo2.start();
 
-
         while (condicionDeFinalizacion.getCondicion() ==false){
                 System.out.println("esperando");
                 Thread.sleep(1000);
@@ -95,6 +93,7 @@ public class Main {
                 nucleo1.interrupt();
                 nucleo2.interrupt();
 
+        Thread.sleep(1000);
         System.out.println("Transiciones disparadas: ");
         for(Integer i:monitor.getDisparos()){
             System.out.print(i + " ");
@@ -102,22 +101,26 @@ public class Main {
         System.out.println();
         System.out.println("cantidad: "+monitor.getDisparos().size());
 
-        System.out.println("Transiciones NUNCA disparadas: ");
+/*
         boolean[] transicionesDisparadas = new boolean[15];
         for(int i=0; i<transicionesDisparadas.length; i++){
             transicionesDisparadas[i]=false;
         }
+
         for(Integer i:monitor.getDisparos()){
             transicionesDisparadas[monitor.getDisparos().get(i)]=true;
         }
+        System.out.println("Transiciones NUNCA disparadas: ");
         for(int i=0; i<transicionesDisparadas.length; i++){
             if(!transicionesDisparadas[i]) {
                 System.out.print(i + " ");
             }
-        }
+        }*/
         System.out.println();
-
+        System.out.println("antes de verificar invariantes");
         rdp.verificarTinvariantes(monitor.getDisparos());
+        System.out.println("despues de verificar invariantes");
+
 
         System.out.println("Las transiciones sobrantes son: ");
         for(Integer i:monitor.getDisparos()){

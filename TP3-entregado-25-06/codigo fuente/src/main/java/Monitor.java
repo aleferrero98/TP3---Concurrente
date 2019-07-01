@@ -22,7 +22,7 @@ public class Monitor {
         this.condicionDeFinalizacion = condicion;
         this.finalN1 = 0;
         this.finalN2 = 0;
-        this.disparos = new ArrayList<>();
+        this.disparos = new ArrayList<>(); //arreglo de todas las transiciones que se disparan a lo largo de la efecucion del programa
     }
 
     public void disparar(int transicion) throws IllegalDisparoException {
@@ -37,12 +37,12 @@ public class Monitor {
             }
             if(RdP.esTemporizada(transicion)){
                 dispararTemporizada(transicion);
-                this.disparosRealizados += "T" + transicion;
+
                 this.disparos.add(transicion);
             }
             else {
                 RdP.disparar(transicion); //dispara la transicion actualizando asi el estado
-                this.disparosRealizados += "T" + transicion;
+
                 this.disparos.add(transicion);
             }
 
@@ -68,12 +68,10 @@ public class Monitor {
             }
             if(RdP.esTemporizada(transicion)){
                 dispararTemporizada(transicion);//dispara la transicion temporal actualizando asi el estado
-                this.disparosRealizados += "T" + transicion;
                 this.disparos.add(transicion);
             }
             else {
                 RdP.disparar(transicion); //dispara la transicion actualizando asi el estado
-                this.disparosRealizados += "T" + transicion;
                 this.disparos.add(transicion);
             }
 
@@ -98,7 +96,7 @@ public class Monitor {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                RdP.disparar(transicion); //llamada recursiba, en la mas interna deberia de entrar en el primer if y disparar la transicion
+                RdP.disparar(transicion); //llamada recursiva, en la mas interna deberia de entrar en el primer if y disparar la transicion
             }
             else throw new IllegalDisparoException("llego despues no se va a disparar nunca");
         }
@@ -154,41 +152,5 @@ public class Monitor {
     public ArrayList<Integer> getDisparos(){
         return disparos;
     }
-  /*  public String toString(int transicion) throws Exception {
-        switch(transicion){
-            case 0:
-                return "arrival_rate";
-            case 1:
-                return "power_down_TN1";
-            case 2:
-                return "power_up_delayN1";
-            case 3:
-                return "service_rateN1";
-            case 4:
-                return "TA_N1";
-            case 5:
-                return "TB_N1";
-            case 6:
-                return "TD_N1";
-            case 7:
-                return "TC_N1";
-            case 8:
-                return "power_down_TN2";
-            case 9:
-                return "power_up_delayN2";
-            case 10:
-                return "TD_N2";
-            case 11:
-                return "TC_N2";
-            case 12:
-                return "service_rateN2";
-            case 13:
-                return "TB_N2";
-            case 14:
-                return "TA_N2";
-            default:
-                throw new Exception("numero de transicion no valido");
-        }
-    }*/
 
 }

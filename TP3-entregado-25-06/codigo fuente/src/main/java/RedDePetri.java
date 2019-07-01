@@ -131,7 +131,7 @@ public class RedDePetri {
          //   imprimir(disparoSensibilizado, "Sigma");
          //   imprimir(marcaActual, "Mj");
             printArchivo(marcaActual,"Mj");
-            marcaActual = op.sumar(marcaActual, op.multiplicarXEscalar(op.multiplicar(Imenos, disparoSensibilizado),-1)); //Ecuacion de estado generalizada: Mj+1 = Mj + Imenos*(sigma and Ex)
+            marcaActual = op.sumar(marcaActual, op.multiplicarXEscalar(op.multiplicar(Imenos, disparoSensibilizado),-1)); //Ecuacion de estado generalizada: Mj+1 = Mj - Imenos*(sigma and Ex)
          //   imprimir(marcaActual, "Mj+1");
             marcaActual = op.sumar(marcaActual, op.multiplicar(Imas, disparoSensibilizado)); //Ecuacion de estado generalizada: Mj+2 = Mj+1 + Imas*(sigma and Ex)
          //   imprimir(marcaActual, "Mj+2");
@@ -253,7 +253,7 @@ public class RedDePetri {
         }
     }
     public ArrayList<Integer> verificarTinvariantes(ArrayList<Integer> disparos){
-        ArrayList<Integer> invariante = new ArrayList<>();
+        ArrayList<Integer> invariante = new ArrayList<>();  //contiene la secuencia de transiciones que cumple con un T-invariante
         invariante.add(0);
         invariante.add(4);
         invariante.add(7);
@@ -293,49 +293,45 @@ public class RedDePetri {
         return disparos;
     }
 
-    public void sacarTodasLasTransiciones(ArrayList<Integer> disparos, ArrayList<Integer> invariante){
+    //A partir de todas las transiciones disparadas y de un t-invariante, se mira cuantas veces esta ese t-invariante en el arreglo de transiciones
+    private void sacarTodasLasTransiciones(ArrayList<Integer> disparos, ArrayList<Integer> invariante){
         boolean inv = false;
-
         do{
             inv = invariante(disparos, invariante);
-            System.out.println("do while: "+inv);
+            //System.out.println("do while: "+inv);
         }while(inv);
 
     }
-    public boolean invariante(ArrayList<Integer> disparos,  ArrayList<Integer> invariante){
-        //int[] valoresAsacar = new int[invariante.size()];
-        //valoresAsacar[0] = buscarTransicion(0,invariante.get(0),disparos);
+    private boolean invariante(ArrayList<Integer> disparos,  ArrayList<Integer> invariante){
         ArrayList<Integer> valoresAsacar = new ArrayList<>();   //guarda el indice(del arreglo "disparos") de la transicion a sacar
-        valoresAsacar.add(buscarTransicion(0,invariante.get(0),disparos)); //se fija para la primer transicion
         int valor;
-        for(int i=1; i < invariante.size(); i++){
-            //valoresAsacar[i] = buscarTransicion(valoresAsacar[i-1],invariante.get(0),disparos);
-            valor = buscarTransicion(valoresAsacar.get(i-1),invariante.get(i),disparos);
+        valor = buscarTransicion(0,invariante.get(0),disparos);
+        if(valor < 0){
+            return false;
+        }
+        valoresAsacar.add(valor); //se fija para la primer transicion
 
+        for(int i=1; i < invariante.size(); i++){
+            valor = buscarTransicion(valoresAsacar.get(i-1)+1,invariante.get(i),disparos);  //arranca de la posicion siguiente al ultimo numero sacado
             if(valor < 0){
                 return false;
             }
             valoresAsacar.add(valor);
         }
-
         for(Integer recorrer: valoresAsacar){
             disparos.remove(recorrer);
         }
-        /*
-        for(int j=0; j<valoresAsacar.length; j++){
-            disparos.remove(valoresAsacar[j]);
-        }*/
         return true;
     }
 
-    public int buscarTransicion(int inicio, int transicion, ArrayList<Integer> disparos){ //busca la transicion indicada en el arreglo de transiciones que se dispararon
+    private int buscarTransicion(int inicio, int transicion, ArrayList<Integer> disparos){ //busca la transicion indicada en el arreglo de transiciones que se dispararon
         for(int i=inicio; i<disparos.size(); i++){              //devuelve la posicion en el arreglo en la que se encuentra dicha transicion
             if(disparos.get(i)==transicion){
-                System.out.println(disparos.get(i)+" es igual a "+transicion);
+               // System.out.println(disparos.get(i)+" es igual a "+transicion);
                 return i;
             }
-            System.out.println(disparos.get(i)+" es distinto a "+transicion);
+           // System.out.println(disparos.get(i)+" es distinto a "+transicion);
         }
-        return -1;
+        return -1; //no se encontro igualdad
     }
 }
